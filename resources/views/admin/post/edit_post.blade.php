@@ -1,0 +1,127 @@
+@extends('admin.layout.master')
+@section('content')
+  <div class="row">
+        <div class="col-md-12">
+
+      <h2><strong>Edit Post</strong></h2>
+           @include('errors.message_error')
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-12">
+      <form action="{{ url('edit/'.$post->id.'/post') }}" method="post" enctype="multipart/form-data">
+      {{ csrf_field() }}
+         <div class="col-md-11">
+              <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="title" class="form-control" value="{{ $post->title }}">
+              </div>
+              <div class="form-group">
+                <label>Link</label>
+                <input type="text" name="link" class="form-control" value="{{ $post->link }}">
+              </div>
+              <div class="form-group">
+                <label>Categories</label><br>
+                  <select class="form-control" name="categorie_id[]">
+                  <option value="0">Select Category</option>
+                  @if(count($category)>0)
+                    @foreach($category as $c)
+                      <option value="{{$c->id}}" <?php if(count($post->cate)>0){if($post->cate->first()->id == $c->id){echo "selected";}}?> >{{$c->name}}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </div>
+              <div class="form-group">
+                  <label>Language</label>
+                  <?php $lang = App\Language::get(); ?>
+                  <select class="form-control" name="language">
+                    @if(count($lang) > 0)
+                      @foreach($lang as $la)
+                        <option value="{{ $la->id }}" <?php  if($la->id == $post->language){echo "selected";}  ?>> {{ $la->name }} </option>
+                      @endforeach
+                    @endif
+                  </select>
+              </div>
+              <div class="form-group">
+                <label>Translate</label>
+                <select class="form-control" name="translate">
+                    <option value="">Select Page</option>
+                    @foreach($post_tr as $p)
+                        <option value="{{$p->link}}">{{$p->title}}</option>
+                    @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Price</label>
+                <input type="text" name="link_download" class="form-control" value="{{ $post->link_download }}">
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" class="ckeditor" id="editor" >{{ $post->description }}</textarea>
+              </div>
+              <div class="form-group">
+                  <label>Status</label>
+                  <select class="form-control" name="status">
+                      <option value="1" <?php if($post->status == 1){echo "selected";} ?> >Active</option>
+                      <option value="0" <?php if($post->status == 0){echo "selected";} ?> >Not Active</option>
+                  </select>
+              </div>
+              <div class="form-group">
+              <label>Publish Date</label>
+              <div class='input-group date' id='datetimepicker1'>
+                  <input type='text' name="publish_date" class="form-control" value="{{ date('d-m-Y',strtotime($post->publish_date)) }}"/>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Unpublish Date</label>
+              <div class='input-group date' id='datetimepicker2'>
+                  <input type='text' name="unpublish_date" class="form-control"  value="{{ date('d-m-Y',strtotime($post->unpublish_date)) }}"/>
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </div>
+            </div>
+              <div class="form-group">
+                <label>Choose image</label>
+                <input type="file" name="image" class="form-control">
+                @if($post->image)
+                    <img src="{{ url('images/'.$post->image) }}" class="img-close" style="width:100px;"/>
+                    <a class="btn btn-danger closes"><i class="fa fa-ban"></i></a>
+                    <input type="hidden" name="image_hidden" class="image-hidden" class="form-control" value="{{ $post->image }}">
+                @endif
+              </div>
+              <div class="form-group">
+                <label>Choose Image Multi Upload</label>
+                <input type="file" id="multi" name="image_multi[]" class="form-control" multiple>
+                @if($post->image_post)
+                  @foreach ($post->image_post as $key => $value)
+                    <img src="{{ url('images/'.$value->image) }}" class="mult-img-close" style="width:100px;"/>
+                  @endforeach
+                  @if($post->image_post->sum('post_id') > 0)
+                    <a class="btn btn-danger mult_closes"><i class="fa fa-ban"></i></a>
+                    <input type="hidden" id="mult_image_hidden" name="mult_image_hidden" class="image-hidden" class="form-control" value="1">
+                  @endif
+               @endif
+               
+              </div>
+              <button type="submit" class="btn btn-primary">Submit </button>
+           </div>
+      </form>
+    </div>
+  </div>
+	<script>
+	    $(".closes").click(function(){
+	        $(this).remove();
+	        $(".image-hidden").removeAttr("value");
+	        $(".img-close").remove();
+	    });
+	    
+	    $(".mult_closes").click(function(){
+	        $(this).remove();
+	        $("#mult_image_hidden").attr("value","0");
+	        $(".mult-img-close").remove();
+	    });
+	</script>
+@endsection
