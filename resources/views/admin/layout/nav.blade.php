@@ -44,7 +44,7 @@
                     </li>
                     <!--<li>-->
                     <!--    <a class="{{ Request::segment(1) == 'products-category' || Request::segment(1) == 'products-product' || Request::segment(1) == 'products-brand' ? 'active-menu' : null }}" href="#"><i class="fa fa-sitemap fa-3x"></i>Product<span class="fa arrow"></span></a>-->
-                    <!--    <ul class="nav nav-second-level {{ Request::segment(1) == 'products-category' || Request::segment(1) == 'products-product' || Request::segment(1) == 'products-brand' ? 'in' : null }}">-->
+                    <!--    <ul class="nav nav-second-level {{ Request::segment(1) == 'products-category' || Request::segment(1) ==  'products-product' || Request::segment(1) == 'products-brand' ? 'in' : null }}">-->
                     <!--        <li>-->
                     <!--            <a class="{{ Request::segment(1) == 'products-category' ? 'active-menu' : null }}" href="{{ url('products-category') }}">Product Category</a>-->
                     <!--        </li>-->
