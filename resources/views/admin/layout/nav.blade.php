@@ -8,7 +8,7 @@
                         @else
                             <img src="{{url('assets/img/find_user.png')}}" class="user-image img-responsive"/>
                         @endif
-					        </li>
+					        </li>   
 
                     <li>
                         <a class="{{ Request::segment(1) == 'admin' ? 'active-menu' : null }}"  href="{{ url('admin') }}"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>

@@ -70,7 +70,7 @@ Route::get('edit/{id}/post',['as'=>'edit/{id}/post','uses'=>'PostController@get_
 Route::post('edit/{id}/post',['as'=>'edit/{id}/post','uses'=>'PostController@post_edit_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 Route::get('delete/{id}/post',['as'=>'delete/{id}/post','uses'=>'PostController@get_delete_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 //multiple delete post
-Route::post('multiple_delete_post',['as'=>'multiple_delete_post','uses'=>'PostController@multiple_delete_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+Route::post('multiple_delete_post',['as'=>'multiple_delete_post','uses'=>'PostController@multiple_delete_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);   
 
 //Category
 Route::get('categorys',['as'=>'categorys','uses'=>'CategoryController@index_category','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);

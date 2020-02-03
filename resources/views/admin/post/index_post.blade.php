@@ -42,7 +42,7 @@
                           <tbody>
                             @if(count($post) > 0 )
                               @foreach($post as $p)
-                              <tr>
+                              <tr>  
                                 <td>
                                   <input type="checkbox" class="selectbox" name="ids[]" value="{{$p->id}}">
                                 </td>

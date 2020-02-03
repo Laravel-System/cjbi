@@ -222,7 +222,7 @@ class PostController extends Controller
       public function multiple_delete_post(Request $request)
       {
         $ids=$request->get('ids');
-        // dd($ids); 
+        // dd($ids);  
        
         $post=DB::delete('delete from posts where id in('.implode(',',$ids).')');
         // foreach($post as $value){
