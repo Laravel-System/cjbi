@@ -15,7 +15,7 @@ class PostController extends Controller
     public function index_post()
     {
     	$category = Category::where('category_type','=','category')->get();
-    	$post = Post::where('post_type','=','post')->get();
+    	$post = Post::where('post_type','=','post')->orderBy('id','desc')->get();
     	return view('admin.post.index_post',compact('post','category'));
     }
     public function get_create_post()
@@ -29,7 +29,14 @@ class PostController extends Controller
 
     	$this->validate($request,[
     		'title' => 'required'
-    	]);
+      ]);
+      
+      //show title
+      if($request->show_title==1){
+        $value=1;
+      }else{
+          $value=0;
+      } 
 
       if($request->link != Null){
         $link = str_slug($request->link ,'-');
@@ -56,6 +63,7 @@ class PostController extends Controller
         $post = [
             'id' => $id_post,
             'title' => $request->title,
+            'action_title'=>$value,
             'link' => $link,
             'link_download' =>$request->link_download,
             'language'=>$request->language,
@@ -90,8 +98,8 @@ class PostController extends Controller
                       $fileName = $images->getClientOriginalName();
                       $fileupload = $images->move($destinationPath,$fileName);
                     $post_image = [
-                          'post_id' => $post_id,
-                          'image' => $request->get('images/',$fileName)
+                      'post_id' => $post_id,
+                      'image' => $request->get('images/',$fileName)
                     ];
 
                     DB::table('post_image')->insert($post_image);
@@ -107,7 +115,7 @@ class PostController extends Controller
 
     public function get_edit_post($id)
     {
-        $category =  Category::where('category_type','=','category')->get();
+      $category =  Category::where('category_type','=','category')->get();
     	$posts = Post::all();
     	$post = Post::where('post_type','=','post')->where('id','=',$id)->first();
     	$post_tr = Post::where('post_type','=','post')->where('language','!=',$post->language)->get();
@@ -120,6 +128,15 @@ class PostController extends Controller
     	$this->validate($request,[
             'title' => 'required'
         ]);
+
+        //show title
+        if($request->show_title==1){
+          $value=1;
+        }else{
+          $value=0;
+        }
+
+
         if($request->link != Null){
           $link = str_slug($request->link ,'-');
         }else{
@@ -142,6 +159,7 @@ class PostController extends Controller
 
         $post = [
             'title' => $request->title,
+            'action_title'=>$value,
             'link' => $link,
             'link_download' =>$request->link_download,
             'language'=>$request->language,
@@ -199,4 +217,25 @@ class PostController extends Controller
     	$post->delete();
     	return redirect()->to('posts')->with('success','Deleted Successful');
     }
+
+      //multiple delete
+      public function multiple_delete_post(Request $request)
+      {
+        $ids=$request->get('ids');
+        // dd($ids); 
+       
+        $post=DB::delete('delete from posts where id in('.implode(',',$ids).')');
+        // foreach($post as $value){
+        //   $post_img=[
+        //     'post_id' => $ids,
+        //   ];
+        // }
+        // DB::table('post_image')->delete($post_image);
+        // $dbs=DB::table('page_categories')->whereIn('page_id',explode(',',$ids))->delete();
+        // DB::table('post_image')->whereIn('post_id','=',$ids)->delete();
+        return back();
+      }
+
+
+
 }
