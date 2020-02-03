@@ -2,7 +2,6 @@
 @section('content')
   <div class="row">
         <div class="col-md-12">
-
       <h2><strong>Page</strong></h2>
          @include('errors.message_error')
     </div>
@@ -50,7 +49,11 @@
                                   </td>
                                   <td>
                                     <a href="{{ url('page_edit/'.$p->id.'/edit')}}" class="btn btn-primary"><i class="fa fa-edit "></i> Edit</a>
+<<<<<<< HEAD
                                     <a href="{{ url('page_delete/'.$p->id.'/delete') }}" class="btn btn-danger"><i class="fa fa-ban"></i> Delete</a>
+=======
+                                  <a href="{{ url('page_delete/'.$p->id.'/delete') }}" class="btn btn-danger"><i class="fa fa-ban"></i> Delete</a>
+>>>>>>> aebea37ff346bb5969d090d0ff40c30672708ac2
                                   </td>
                               </tr>
                             @endforeach

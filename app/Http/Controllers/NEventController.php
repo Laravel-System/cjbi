@@ -27,6 +27,7 @@ class NEventController extends Controller
     $this->validate($request,[
       'name' => 'required|unique:category'
       ]);
+
     $category = [
           'name' => $request->name,
           'language' => $request->language,
@@ -106,7 +107,12 @@ public function post_create_news_event_post(Request $request)
   $this->validate($request,[
     'title' => 'required'
   ]);
-
+    //show title
+    if($request->show_title==1){
+    $value=1;
+    }else{
+      $value=0;
+    }
   if($request->link != Null){
     $link = str_slug($request->link ,'-');
   }else{
@@ -132,6 +138,7 @@ public function post_create_news_event_post(Request $request)
     $post = [
         'id' => $id_post,
         'title' => $request->title,
+        'action_title'=>$value,
         'link' => $link,
         'language' => $request->language,
         'link_download' =>$request->link_download,
@@ -194,6 +201,13 @@ public function post_edit_news_event_post(Request $request,$id)
   $this->validate($request,[
         'title' => 'required'
     ]);
+
+    //show title
+    if($request->show_title==1){
+      $value=1;
+      }else{
+        $value=0;
+      }
     if($request->link != Null){
       $link = str_slug($request->link ,'-');
     }else{
@@ -208,11 +222,12 @@ public function post_edit_news_event_post(Request $request,$id)
         $fileName = str_replace(" ","-",$fileNames);
         $fileupload = $images->move($destinationPath,$fileName);
     }else{
-         $fileName =$request->image_hidden;
+        $fileName =$request->image_hidden;
     }
 
     $post = [
         'title' => $request->title,
+        'action_title'=>$value,
         'link' => $link,
         'language' => $request->language,
         'link_download' =>$request->link_download,

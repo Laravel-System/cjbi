@@ -26,21 +26,21 @@
                   <label>Language</label>
                   <?php $lang = App\Language::get(); ?>
                   <select class="form-control" name="language">
-                      @if(count($lang) > 0)
-                          @foreach($lang as $la)
-                            <option value="{{ $la->id }}"> {{ $la->name }} </option>
-                          @endforeach
-                      @endif
+                     @if(count($lang) > 0)
+								@foreach($lang as $la)
+									<option value="{{ $la->id }}"> {{ $la->name }} </option>
+								@endforeach
+                     @endif
                   </select>
               </div>
               <div class="form-group">
                 <label>Menu</label>
                  <select name="menu_id" class="form-control">
                  <option value="0">Please select menu</option>
-                 @if(count($menu)>0)
-                  @foreach($menu as $m)
-                  <option value="{{ $m->id }}">{{ $m->name }}</option>
-                   @endforeach
+                  @if(count($menu)>0)
+							@foreach($menu as $m)
+							   <option value="{{ $m->id }}">{{ $m->name }}</option>
+							@endforeach
                   @endif
                 </select>
               </div>
@@ -85,7 +85,7 @@
                 <label>Choose image</label>
                 <input type="file" name="image" class="form-control">
               </div>
-							  <button type="submit" class="btn btn-primary">Submit </button>
+						<button type="submit" class="btn btn-primary">Submit </button>
 					</div>
 					<div class="col-md-6"><br/>
 						<table class="table table-striped table-bordered">
@@ -126,7 +126,6 @@
 									</td>
 									<td><a href="#" class="btn btn-danger remove_rows" >delete</a></td>
 								</tr>
-
 							</body>
 						</table>
 					</div>

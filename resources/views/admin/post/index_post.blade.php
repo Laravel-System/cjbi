@@ -15,12 +15,24 @@
       <div class="panel panel-default">
         <div class="panel-heading">
                      List Posts
-                </div>
-        <div class="panel-body">
+                </div><br>
+               
+                <div class="panel-body">
+        
                   <div class="table-responsive">
-                   <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                  <form method="post"enctype='multipart/form-data'>
+                  {{ csrf_field() }}
+                  
+                  <button formaction="{{url('multiple_delete_post')}}" type="submit" style="background:#990000;color:white;">Delete all selected</button>
+               
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                   
                           <thead>
                               <tr>
+                           
+                              <th>
+                                <input type="checkbox" class="selectall"> All
+                              </th>
                                 <th>Title</th>
                                 <th>Category</th>
                                 <th>Status</th>
@@ -38,27 +50,43 @@
                                         NULL
                                     @endif
 
-                                  </td>
-                                  <td>
-                                    @if($p->status == 0)
-                                      Not Active
-                                    @else
-                                      <span>Active</span>
-                                    @endif
-                                  </td>
-                                  <td>
-                                    <a href="{{ url('edit/'.$p->id.'/post') }}" class="btn btn-primary"><i class="fa fa-edit "></i></a>
-                                    <a href="{{ url('delete/'.$p->id.'/post') }}" class="btn btn-danger"><i class="fa fa-ban"></i></a>
-                                  </td>
+                                </td>
+                                <td>
+                                  @if($p->status == 0)
+                                    Not Active
+                                  @else
+                                    <span>Active</span>
+                                  @endif
+                                </td>
+                                <td>
+                                  <a href="{{ url('edit/'.$p->id.'/post') }}" class="btn btn-primary"><i class="fa fa-edit "></i></a>
+                                  <a href="{{ url('delete/'.$p->id.'/post') }}" class="btn btn-danger"><i class="fa fa-ban"></i></a>
+                                </td>
                               </tr>
                             @endforeach
                           @endif
                           </tbody>
                       </table>
+                    </form>  
                   </div>
               </div>
           </div>
     </div>
   </div>
-
+<script>
+  $(document).ready(function(){
+    $('.selectall').click(function () {    
+      $('.selectbox').prop('checked',$(this).prop('checked'));    
+    });
+    $('.selectbox').click(function(){
+      var total=$('.selectbox').length;
+      var number=$('.selectbox:checked').lenght;
+      if(total==number){
+        $('.selectall').prop('checked',true);
+      }else{
+        $('.selectall').prop('checked',false);
+      }
+    });
+  });
+</script>
 @endsection

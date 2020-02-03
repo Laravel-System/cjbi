@@ -15,8 +15,12 @@ class PostController extends Controller
     public function index_post()
     {
     	$category = Category::where('category_type','=','category')->get();
+<<<<<<< HEAD
       $post  = Post::where('post_type','=','post')      
       ->get();
+=======
+    	$post = Post::where('post_type','=','post')->orderBy('id','desc')->get();
+>>>>>>> aebea37ff346bb5969d090d0ff40c30672708ac2
     	return view('admin.post.index_post',compact('post','category'));
     }
     public function get_create_post()
@@ -28,7 +32,20 @@ class PostController extends Controller
     public function post_create_post(Request $request)
     {
 
+<<<<<<< HEAD
     	$this->validate($request,[ 'title' => 'required' ]);
+=======
+    	$this->validate($request,[
+    		'title' => 'required'
+      ]);
+      
+      //show title
+      if($request->show_title==1){
+        $value=1;
+      }else{
+          $value=0;
+      } 
+>>>>>>> aebea37ff346bb5969d090d0ff40c30672708ac2
 
       if($request->link != Null){
         $link = str_slug($request->link ,'-');
@@ -55,6 +72,7 @@ class PostController extends Controller
         $post = [
             'id' => $id_post,
             'title' => $request->title,
+            'action_title'=>$value,
             'link' => $link,
             'link_download' =>$request->link_download,
             'language'=>$request->language,
@@ -89,6 +107,7 @@ class PostController extends Controller
                       $destinationPath = "images/";
                       $fileName = $images->getClientOriginalName();
                       $fileupload = $images->move($destinationPath,$fileName);
+<<<<<<< HEAD
                       $post_image = [
                           'post_id' => $post_id,
                           'image' => $request->get('images/',$fileName)
@@ -96,6 +115,16 @@ class PostController extends Controller
                       DB::table('post_image')->insert($post_image);
                 }
             }
+=======
+                    $post_image = [
+                      'post_id' => $post_id,
+                      'image' => $request->get('images/',$fileName)
+                    ];
+
+                    DB::table('post_image')->insert($post_image);
+              }
+          }
+>>>>>>> aebea37ff346bb5969d090d0ff40c30672708ac2
 
         }
 
@@ -106,7 +135,7 @@ class PostController extends Controller
 
     public function get_edit_post($id)
     {
-        $category =  Category::where('category_type','=','category')->get();
+      $category =  Category::where('category_type','=','category')->get();
     	$posts = Post::all();
     	$post = Post::where('post_type','=','post')->where('id','=',$id)->first();
     	$post_tr = Post::where('post_type','=','post')->where('language','!=',$post->language)->get();
@@ -119,6 +148,15 @@ class PostController extends Controller
     	$this->validate($request,[
             'title' => 'required'
         ]);
+
+        //show title
+        if($request->show_title==1){
+          $value=1;
+        }else{
+          $value=0;
+        }
+
+
         if($request->link != Null){
           $link = str_slug($request->link ,'-');
         }else{
@@ -141,6 +179,7 @@ class PostController extends Controller
 
         $post = [
             'title' => $request->title,
+            'action_title'=>$value,
             'link' => $link,
             'link_download' =>$request->link_download,
             'language'=>$request->language,
@@ -199,6 +238,7 @@ class PostController extends Controller
     	$post->delete();
     	return redirect()->to('posts')->with('success','Deleted Successful');
     }
+<<<<<<< HEAD
     public function get_image_folder(Request $request){
         if($request->hasFile('image_multi')) {
           foreach ($request->file('image_multi') as $ke => $value) {
@@ -210,6 +250,27 @@ class PostController extends Controller
         }
       }
     }
+=======
+
+      //multiple delete
+      public function multiple_delete_post(Request $request)
+      {
+        $ids=$request->get('ids');
+        // dd($ids);  
+       
+        $post=DB::delete('delete from posts where id in('.implode(',',$ids).')');
+        // foreach($post as $value){
+        //   $post_img=[
+        //     'post_id' => $ids,
+        //   ];
+        // }
+        // DB::table('post_image')->delete($post_image);
+        // $dbs=DB::table('page_categories')->whereIn('page_id',explode(',',$ids))->delete();
+        // DB::table('post_image')->whereIn('post_id','=',$ids)->delete();
+        return back();
+      }
+
+>>>>>>> aebea37ff346bb5969d090d0ff40c30672708ac2
 
 
 }
