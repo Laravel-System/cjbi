@@ -15,7 +15,8 @@ class PostController extends Controller
     public function index_post()
     {
     	$category = Category::where('category_type','=','category')->get();
-    	$post = Post::where('post_type','=','post')->get();
+      $post  = Post::where('post_type','=','post')      
+      ->get();
     	return view('admin.post.index_post',compact('post','category'));
     }
     public function get_create_post()
@@ -27,9 +28,7 @@ class PostController extends Controller
     public function post_create_post(Request $request)
     {
 
-    	$this->validate($request,[
-    		'title' => 'required'
-    	]);
+    	$this->validate($request,[ 'title' => 'required' ]);
 
       if($request->link != Null){
         $link = str_slug($request->link ,'-');
@@ -76,27 +75,27 @@ class PostController extends Controller
             if ($request->has('categorie_id')) {
                 foreach ($request->categorie_id as $key => $cat) {
                     $post_category = [
-                    'page_id' => $post_id,
-                    'categorie_id' => $request->categorie_id[$key],
+                      'page_id' => $post_id,
+                      'categorie_id' => $request->categorie_id[$key],
                     ];
 
                     DB::table('page_categories')->insert($post_category);
                 }
             }
-          if($request->hasFile('image_multi')){
-              foreach ($request->file('image_multi') as $ke => $value) {
+
+            if($request->hasFile('image_multi')) {
+                foreach ($request->file('image_multi') as $ke => $value) {
                       $images = $request->file('image_multi')[$ke];
                       $destinationPath = "images/";
                       $fileName = $images->getClientOriginalName();
                       $fileupload = $images->move($destinationPath,$fileName);
-                    $post_image = [
+                      $post_image = [
                           'post_id' => $post_id,
                           'image' => $request->get('images/',$fileName)
-                    ];
-
-                    DB::table('post_image')->insert($post_image);
-              }
-          }
+                      ]; 
+                      DB::table('post_image')->insert($post_image);
+                }
+            }
 
         }
 
@@ -153,6 +152,7 @@ class PostController extends Controller
             'user_id' => Auth::user()->id,
             'unpublish_date' => $request->unpublish_date,
             'created_at' => date('Y-m-d'),
+            'updated_at' => date('y-m-d h:i:s')
                 ];
 
         $post_id = Post::where('id','=',$id)->update($post);
@@ -199,4 +199,17 @@ class PostController extends Controller
     	$post->delete();
     	return redirect()->to('posts')->with('success','Deleted Successful');
     }
+    public function get_image_folder(Request $request){
+        if($request->hasFile('image_multi')) {
+          foreach ($request->file('image_multi') as $ke => $value) {
+            $images = $request->file('image_multi')[$ke];
+            $destinationPath = "images/";
+            $fileName = $images->getClientOriginalName();
+            $fileupload = $images->move($destinationPath,$fileName);
+            
+        }
+      }
+    }
+
+
 }

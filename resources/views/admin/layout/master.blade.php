@@ -19,7 +19,25 @@
    <link href="{{ url('assets/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
    <link href="{{url('assets/js/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet" />
    <script type="text/javascript" src="{{url('ckeditor/ckeditor.js')}}"></script>
-
+   <style>
+      .border {
+        display: inline-block;
+        border-radius:0;
+        width: 100px;
+        height: 100px;
+        margin: 6px;
+        border:1px solid black;
+      }
+      .modal-content{
+        border-radius:0;
+        height:700px;
+      }
+      .modal-dialog{
+        width:1450px!important;
+        height:900px!important;
+        
+      }
+  </style>
 </head>
 <body>
     <div id="wrapper">
@@ -56,7 +74,11 @@
     <script src="{{url('assets/js/dataTables/dataTables.bootstrap.js')}}"></script>
         <script>
             $(document).ready(function () {
-                $('#dataTables-example').dataTable();
+                $('#dataTables-example').dataTable({                  
+                  "aaSorting": []  // for clear 
+                            
+                });
+                
             });
         </script>
 

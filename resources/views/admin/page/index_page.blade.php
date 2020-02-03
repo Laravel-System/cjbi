@@ -50,7 +50,7 @@
                                   </td>
                                   <td>
                                     <a href="{{ url('page_edit/'.$p->id.'/edit')}}" class="btn btn-primary"><i class="fa fa-edit "></i> Edit</a>
-                    <a href="{{ url('page_delete/'.$p->id.'/delete') }}" class="btn btn-danger"><i class="fa fa-ban"></i> Delete</a>
+                                    <a href="{{ url('page_delete/'.$p->id.'/delete') }}" class="btn btn-danger"><i class="fa fa-ban"></i> Delete</a>
                                   </td>
                               </tr>
                             @endforeach

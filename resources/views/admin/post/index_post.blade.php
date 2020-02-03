@@ -29,7 +29,7 @@
                           </thead>
                           <tbody>
                             @if(count($post) > 0 )
-                              @foreach($post as $p)
+                              @foreach($post->sortByDesc('updated_at') as $p)
                               <tr>
                                   <td>{{ $p->title }}</td>
                                   <td>@if(count($p->cate)>0)

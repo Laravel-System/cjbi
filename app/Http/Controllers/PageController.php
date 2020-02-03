@@ -79,9 +79,7 @@ class PageController extends Controller
                     DB::table('post_categories')->insert($post_category);
                 }
             }
-
         }
-
     	return redirect()->to('create_page')->with('success','Successful Create');
     }
     public function get_edit_page($id)
@@ -140,10 +138,8 @@ class PageController extends Controller
                     'categorie_id' => $request->categorie_id[$key],
                     'position' => $request->position[$key]
                     ];
-
                     DB::table('post_categories')->insert($post_category);
                 }
-
         }
         return redirect()->to('pages')->with('success','Successful Edit');
     }

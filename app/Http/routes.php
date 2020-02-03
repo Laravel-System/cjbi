@@ -275,3 +275,7 @@ Route::post('mail',['as'=>'mail','uses'=>'FrontendController@sendEmail']);
 Route::get('/{local}',['as'=>'/{local}','uses'=>'FrontendController@home_index_local']);
 Route::get('{name}',['as'=>'{name}','uses'=>'FrontendController@home_index_link_local']);
 Route::get('{local}/{name}',['as'=>'{local}/{name}','uses'=>'FrontendController@home_index_link_local']);
+
+
+//get img from folder
+Route::get('get_image_folder', 'PostController@get_image_folder');
