@@ -75,11 +75,9 @@ class PageController extends Controller
                     'categorie_id' => $request->categorie_id[$key],
                     'position' => $request->position[$key]
                     ];
-
                     DB::table('post_categories')->insert($post_category);
                 }
             }
-
         }
 
     	return redirect()->to('create_page')->with('success','Successful Create');
@@ -124,7 +122,6 @@ class PageController extends Controller
             'unpublish_date' => $request->unpublish_date,
             'created_at' => date('Y-m-d'),
                 ];
-
         $post_id = Post::where('id','=',$id)->update($post);
          DB::table('menu_posts')->where('post_id','=',$id)->delete();
             $menu_post = [
@@ -136,14 +133,12 @@ class PageController extends Controller
                 DB::table('post_categories')->where('post_id','=',$id)->delete();
                 foreach ($request->categorie_id as $key => $cat) {
                     $post_category = [
-                    'post_id' => $id,
-                    'categorie_id' => $request->categorie_id[$key],
-                    'position' => $request->position[$key]
+                        'post_id' => $id,
+                        'categorie_id' => $request->categorie_id[$key],
+                        'position' => $request->position[$key]
                     ];
-
                     DB::table('post_categories')->insert($post_category);
                 }
-
         }
         return redirect()->to('pages')->with('success','Successful Edit');
     }

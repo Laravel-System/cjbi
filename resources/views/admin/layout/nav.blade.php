@@ -2,13 +2,13 @@
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
-				              <li class="text-center">
+				            <li class="text-center">
                         @if(Auth::user()->image)
                             <img src="{{url('images/'.Auth::user()->image)}}" class="user-image img-responsive"/>
                         @else
                             <img src="{{url('assets/img/find_user.png')}}" class="user-image img-responsive"/>
                         @endif
-					             </li>
+					        </li>
 
                     <li>
                         <a class="{{ Request::segment(1) == 'admin' ? 'active-menu' : null }}"  href="{{ url('admin') }}"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>

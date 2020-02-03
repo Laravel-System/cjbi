@@ -53,7 +53,6 @@
                 </select>
               </div>
 
-
               <div class="form-group">
                 <label>Description</label>
                 <textarea name="description" class="ckeditor" id="editor" >{{ $page->description }}</textarea>
@@ -69,7 +68,7 @@
               <label>Publish Date</label>
               <div class='input-group date' id='datetimepicker1'>
                   <input type='text' name="publish_date" class="form-control" value="{{ date('d-m-Y',strtotime($page->publish_date)) }}"/>
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                  <span class="input-group-addon"><span class="glyphicon    glyphicon-calendar"></span>
                   </span>
               </div>
             </div>
@@ -150,7 +149,7 @@
   	$('#add_on_rows').click(function(event){
   				 event.preventDefault();
   						var rows = '<tr id="add_row">' +
-  											 '<td>' +
+  											 '<td>'+
   											 '<select class="form-control" name="categorie_id[]">' +
   	 											'@if(count($category)>0)' +
   	 											'<option value="">Select Catgory</option>' +
@@ -161,21 +160,21 @@
   	 												'@endforeach' +
   	 											'@endif' +
   	 										'</select>'  +
-  	 									'</td>'  +
-  											 '<td>'+
-  											 	'<select class="form-control" name="position[]">' +
-  	 											'<option value="position_1">Position 1</option>' +
-  	 											'<option value="position_2">Position 2</option>' +
-  	 											'<option value="position_3">Position 3</option>' +
-  	 											'<option value="position_4">Position 4</option>' +
-  	 											'<option value="position_5">Position 5</option>' +
-  	 											'<option value="position_6">Position 6</option>' +
-  	 											'<option value="position_7">Position 7</option>' +
-  	 											'<option value="position_8">Position 8</option>' +
-  												'<option value="position_9">Position left (only for template left Sidebar)</option>' +
+  	 									  '</td>'  +
+  											'<td>'+
+  											 	'<select class = "form-control"name="position[]">' +
+  	 											'<option value = "position_1">Position 1</option>' +
+  	 											'<option value = "position_2">Position 2</option>' +
+  	 											'<option value = "position_3">Position 3</option>' +
+  	 											'<option value = "position_4">Position 4</option>' +
+  	 											'<option value = "position_5">Position 5</option>' +
+  	 											'<option value = "position_6">Position 6</option>' +
+  	 											'<option value = "position_7">Position 7</option>' +
+  	 											'<option value = "position_8">Position 8</option>' +
+  												'<option value = "position_9">Position left (only for template left Sidebar)</option>' +
   												'<option value="position_10">Position right (only for template right Sidebar)</option>' +
-  	 										'</select>' +
-  											 '</td>' +
+  	 										'</select>'+
+  											 '</td>'+
   											 '<td><a href="#" class="btn btn-danger remove_rows" >delete</a></td>'
   											 '</tr>';
   					 $('#body_add').append(rows)

@@ -190,4 +190,30 @@ class UserController extends Controller
             return redirect('users')->with("errors","Your current password do not match our record");
         }
     }
+
+    public function ch_pass_user_index($id)
+    {
+        // $id=$id;
+        $data = User::find($id);
+        return view('admin.user.change_user',compact('data'));
+    }
+
+    //change password
+    public function get_changepassword($id)
+    {
+        $user=User::find($id);
+        $id=$id;
+        return view('admin.user.admin_ch_pass',compact('id','user'));
+    }
+    public function post_changepassword(Request $request,$id)
+    {
+        $this->validate($request,[
+            'password' =>'required',
+            'confirm_password' => 'required|same:password'
+        ]);      
+        User::where('id','=',$id)->update(['password'=>bcrypt($request->password)]);
+        return redirect('users');
+
+    }
+
 }

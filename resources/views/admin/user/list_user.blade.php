@@ -63,6 +63,8 @@
 	                                 </td>
 	                                 <td></td>
 	                                <td>
+											  <a href="{{url('chang_password/'.$d->id)}}" class="btn btn-primary" style="margin-bottom: 15px;margin-left: %">
+                							Change Password</a>
 	                                	<a href="{{ url('edit_users/'.$d->id.'/edit') }}" class="btn btn-primary"><i class="fa fa-edit "></i> Edit</a>
 										<a href="{{ url('deleted_users/'.$d->id.'/deleted')}}" class="btn btn-danger"><i class="fa fa-ban"></i> Delete</a>
 	                                </td>

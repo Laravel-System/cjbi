@@ -10,8 +10,9 @@
 	<hr/>
 	<div class="row">
 		<div class="col-md-12">
-            <a href="{{url('user_change/'.$data->id)}}" class="btn btn-primary" style="margin-bottom: 15px;margin-left: 87%">
-                Change Password</a>
+            
+            <!-- <a href="{{url('chang_password/'.$data->id)}}" class="btn btn-primary" style="margin-bottom: 15px;margin-left: 87%">
+                Change Password</a> -->
 
 			<form action="{{ url('edit_users/'.$data->id.'/edit') }}" method="post" enctype="multipart/form-data">
 			{{ csrf_field() }}

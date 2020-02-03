@@ -25,6 +25,18 @@ Route::post('myprofile',['as'=>'myprofile','uses'=>'UserController@post_user_pro
 Route::get('user_change/{id}',['as'=>'user_change/{id}','uses'=>'UserController@get_change_user','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 Route::post('user_change/{id}',['as'=>'user_change/{id}','uses'=>'UserController@post_change_user','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 
+//change password for useer
+
+Route::get('ch_pass_user/{id}',['as'=>'ch_pass_user/{id}','uses'=>'UserController@ch_pass_user_index']);
+
+
+Route::get('chang_password/{id}',['as'=>'chang_password/{id}','uses'=>'UserController@get_changepassword','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+Route::post('chang_password/{id}',['as'=>'chang_password/{id}','uses'=>'UserController@post_changepassword','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+
+// Route::get('ch_pass_admin_index/{id}',['as'=>'ch_pass_admin_index/{id}','uses'=>'UserController@ch_pass_admin_index']);
+// Route::post('ch_pass_user_post/{id}',['as'=>'ch_pass_user_post/{id}','uses'=>'UserController@ch_pass_user_post']);
+
+
 //Advertising
 Route::get('adverting',['as'=>'adverting','uses'=>'AvertisingController@index_ads','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 Route::get('create_ads',['as'=>'create_ads','uses'=>'AvertisingController@get_create_ads','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
@@ -57,6 +69,8 @@ Route::post('create_post',['as'=>'create_post','uses'=>'PostController@post_crea
 Route::get('edit/{id}/post',['as'=>'edit/{id}/post','uses'=>'PostController@get_edit_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 Route::post('edit/{id}/post',['as'=>'edit/{id}/post','uses'=>'PostController@post_edit_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 Route::get('delete/{id}/post',['as'=>'delete/{id}/post','uses'=>'PostController@get_delete_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+//multiple delete post
+Route::post('multiple_delete_post',['as'=>'multiple_delete_post','uses'=>'PostController@multiple_delete_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 
 //Category
 Route::get('categorys',['as'=>'categorys','uses'=>'CategoryController@index_category','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
@@ -259,6 +273,9 @@ Route::get('login',['as'=>'login','uses'=>'LoginController@get_login']);
 Route::post('login',['as'=>'login','uses'=>'LoginController@post_login']);
 Route::get('logout',['as'=>'logout','uses'=>'LoginController@dologout']);
 Route::get('product/search_product_get',['as'=>'product/search_product_get','uses'=>'FrontendController@search_product_get']);
+
+
+
 Route::get('/',function(){
 	return redirect()->to('/en/home');
 });
@@ -275,3 +292,4 @@ Route::post('mail',['as'=>'mail','uses'=>'FrontendController@sendEmail']);
 Route::get('/{local}',['as'=>'/{local}','uses'=>'FrontendController@home_index_local']);
 Route::get('{name}',['as'=>'{name}','uses'=>'FrontendController@home_index_link_local']);
 Route::get('{local}/{name}',['as'=>'{local}/{name}','uses'=>'FrontendController@home_index_link_local']);
+
