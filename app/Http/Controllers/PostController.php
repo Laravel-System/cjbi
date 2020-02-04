@@ -228,21 +228,10 @@ class PostController extends Controller
              $image->move(public_path().'/images/', $name);  
              $data[] = $name;  
          }
-      }
+      } 
       return redirect()->to('create_post')->with('success', 'Your images has been successfully');
     }
-    // public function displayImage($filename) {
-    //   $input = $request->all();
-
-    //   if($file = $request->file('file')){
-    //       $name = $file->getClientOriginalName();
-
-    //       $file->move('images', $name);
-
-    //       $input['path'] = $name;
-    //     }
-    //     Post::create($input);
-    // }
-
+    
+ 
 
 }
