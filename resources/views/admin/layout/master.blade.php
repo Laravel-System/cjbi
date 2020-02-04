@@ -16,6 +16,7 @@
     <link href="{{url('assets/css/custom.css')}}" rel="stylesheet" />
      <!-- GOOGLE FONTS-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.8/css/fileinput.min.css">
    <link href="{{ url('assets/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
    <link href="{{url('assets/js/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet" />
    <script type="text/javascript" src="{{url('ckeditor/ckeditor.js')}}"></script>
@@ -36,6 +37,40 @@
         width:1450px!important;
         height:900px!important;
         
+      }
+      div.file-preview{
+        overflow: scroll!important;
+        height:350px;
+      }
+      .image-checkbox{
+        cursor: pointer;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        border: 4px solid transparent;
+        outline: 0;
+        width:100%;
+        height:100%;
+      }
+      .image-checkbox img{
+        width:100%;
+        height:100%;
+      }
+      .image-checkbox input[type="checkbox"]{
+        display: none;
+      }
+      .image-checkbox-checked{
+        border-color: #f58723;
+      }
+      .box_img{
+        height:150px;
+        float:left;
+        margin-top:40px;
+        width:200px;
+        margin:5px;
+      }
+      .item{
+        margin-top:40px;
       }
   </style>
 </head>
@@ -66,12 +101,11 @@
      <!-- MORRIS CHART SCRIPTS -->
      <script src="{{url('assets/js/morris/raphael-2.1.0.min.js')}}"></script>
     <script src="{{url('assets/js/morris/morris.js')}}"></script>
-      <!-- CUSTOM SCRIPTS -->
-
-
+    <!-- CUSTOM SCRIPTS -->
       <!-- Include Date Range Picker -->
     <script src="{{url('assets/js/dataTables/jquery.dataTables.js')}}"></script>
     <script src="{{url('assets/js/dataTables/dataTables.bootstrap.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.8/js/fileinput.min.js"></script>
         <script>
             $(document).ready(function () {
                 $('#dataTables-example').dataTable({                  

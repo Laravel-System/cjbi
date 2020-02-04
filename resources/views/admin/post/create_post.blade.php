@@ -99,33 +99,16 @@
 			</form>
 		</div>
 	</div>
-  <script>
-    $("#switch_check").on('change', function(){
-      if($(this).is(':checked')){
-         $(this).attr('value','1');
-         $(this).attr("checked", "checked");
-      }else if($(this).val('" "')){
-         $(this).attr('value', '0');
-         $(this).removeAttr("checked", "checked");
-      }
-    });
-
-
-
-<<<<<<< HEAD
-  <!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal</button> -->
-<!-- Modal -->
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
+      <form method="post" action="{{url('form')}}" enctype="multipart/form-data">
+        {{csrf_field()}}
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-
                 </button>
                  <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-
             </div>
             <div class="modal-body">
                 <div role="tabpanel">
@@ -140,58 +123,45 @@
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="uploadTab"><br> 
-                          <form method="post" enctype="multipart/form-data">
-                            <label>Choose Image Multi Upload</label>
-                            <input type="file" name="image_multi[]" class="form-control upload" multiple>
-                          </form>
+                        <div role="tabpanel" class="tab-pane active" id="uploadTab"><br>
+                          <div class="file-loading">                             
+                              <input id="input-b6"  name="filename[]" class="file" type="file" multiple>
+                          </div>
+                        </div> 
+                          <div role="tabpanel" class="tab-pane" id="browseTab"><br>                            
+                              <div class="col-lg-12 item">
+                              
+                                <div class="box_img">
+                                  <label class="image-checkbox" title="Img">
+                                      <img src=" images/2.jpg' ">
+                                      <input type="checkbox" name="team[]" value="england" checked="checked" />
+                                  </label>                             
+                                </div> 
+                              
+                              </div>
+                          </div>          
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="browseTab">
-                          <nav class="navbar navbar-light blue lighten-4">
-                             <a href=""> <span class="navbar-brand border thumbnail">Photo</span></a>
-                             <a href=""> <span class="navbar-brand border thumbnail">Photo</span></a>
-                             <a href=""> <span class="navbar-brand border thumbnail">Photo</span></a>
-                             <a href=""> <span class="navbar-brand border thumbnail">Photo</span></a>
-                             <a href=""> <span class="navbar-brand border thumbnail">Photo</span></a>
-                             <a href=""> <span class="navbar-brand border thumbnail">Photo</span></a>
-                          </nav>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary save">Save changes</button>
+                <button type="submit" class="btn btn-primary  ">Save changes</button>
             </div>
         </div>
+    </form>
     </div>
 </div>
-
 <script>
-  $(document).ready(function(){
-      $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-          }
-      })            
-     
-      $('body').on('change','.upload', function(){
-        var url_get = "{{url('get_image_folder')}}";
-        $.ajax({
-            type: "GET",
-            url: url_get,
-            dataType: "json",
-            success: function (result, xhr) {
-                // if(url != "export_to_excel"){
-                console.log(result);                  
-            },
-            error: function (result) {
-                console.log(result.stutus);
-            }
-        });
-      });
-  });
-=======
+    $("#switch_check").on('change', function(){
+      if($(this).is(':checked')){
+         $(this).attr('value','1');
+         $(this).attr("checked", "checked");
+      }else if($(this).val('" "')){
+         $(this).attr('value', '0');
+         $(this).removeAttr("checked", "checked");
+      }
+    }); 
+ 
     $("#feature_check").on('change', function(){
         if($(this).is(':checked')){
           $(this).attr('value','1');
@@ -200,8 +170,45 @@
           $(this).attr('value', '0');
           $(this).removeAttr("checked", "checked");
         }
+    }); 
+</script>
+
+<script>
+$(document).ready(function() {
+    $("#input-b6").fileinput({
+        showUpload: false,
+       
+        dropZoneEnabled: false,
+        maxFileCount: 50,
+        mainClass: "input-group-lg"
+         
     });
->>>>>>> aebea37ff346bb5969d090d0ff40c30672708ac2
+});
+</script>
+<script type="text/javascript">
+    jQuery(function ($) {
+        // init the state from the input
+        $(".image-checkbox").each(function () {
+            if ($(this).find('input[type="checkbox"]:not(:checked)').first().attr("checked")) {
+                $(this).addClass('image-checkbox-checked');
+            }
+            else {
+                $(this).removeClass('image-checkbox-checked');
+            }
+        });
+        // sync the state to the input
+        $(".image-checkbox").on("click", function (e) {
+            if ($(this).hasClass('image-checkbox-checked')) {
+                $(this).removeClass('image-checkbox-checked');
+                $(this).find('input[type="checkbox"]').first().removeAttr("checked");
+            }
+            else {
+                $(this).addClass('image-checkbox-checked');
+                $(this).find('input[type="checkbox"]').first().attr("checked", "checked");
+            }
+            e.preventDefault();
+        });
+    });
 </script>
 @endsection
 <style>

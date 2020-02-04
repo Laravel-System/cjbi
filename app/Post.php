@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-	protected $table = "posts";
+  protected $table = "posts";
+  
+  public $directory = "/images";
+
+  public function gePathAttribute($value){
+    return $this->directory. $value;
+  }
 
     public function menus()
     {

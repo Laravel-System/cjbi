@@ -17,8 +17,7 @@
                      List Posts
                 </div><br>
                
-                <div class="panel-body">
-        
+                <div class="panel-body">        
                   <div class="table-responsive">
                   <form method="post"enctype='multipart/form-data'>
                   {{ csrf_field() }}

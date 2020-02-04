@@ -15,12 +15,9 @@ class PostController extends Controller
     public function index_post()
     {
     	$category = Category::where('category_type','=','category')->get();
-<<<<<<< HEAD
-      $post  = Post::where('post_type','=','post')      
-      ->get();
-=======
+      // $post  = Post::where('post_type','=','post')      
+      // ->get();
     	$post = Post::where('post_type','=','post')->orderBy('id','desc')->get();
->>>>>>> aebea37ff346bb5969d090d0ff40c30672708ac2
     	return view('admin.post.index_post',compact('post','category'));
     }
     public function get_create_post()
@@ -32,9 +29,6 @@ class PostController extends Controller
     public function post_create_post(Request $request)
     {
 
-<<<<<<< HEAD
-    	$this->validate($request,[ 'title' => 'required' ]);
-=======
     	$this->validate($request,[
     		'title' => 'required'
       ]);
@@ -45,7 +39,6 @@ class PostController extends Controller
       }else{
           $value=0;
       } 
->>>>>>> aebea37ff346bb5969d090d0ff40c30672708ac2
 
       if($request->link != Null){
         $link = str_slug($request->link ,'-');
@@ -61,7 +54,6 @@ class PostController extends Controller
         }else{
              $fileName ="";
         }
-
         $postcout = Post::get();
         if(count($postcout) > 0){
           $pos_last_id = collect(Post::orderBy('id','asc')->get())->last();
@@ -85,10 +77,8 @@ class PostController extends Controller
             'unpublish_date' => $request->unpublish_date,
             'created_at' => date('Y-m-d'),
             'updated_at' => date('Y-m-d'),
-                ];
-
+        ];
         $post_id = Post::insertGetId($post);
-
         if ($post_id != 0) {
             if ($request->has('categorie_id')) {
                 foreach ($request->categorie_id as $key => $cat) {
@@ -100,14 +90,12 @@ class PostController extends Controller
                     DB::table('page_categories')->insert($post_category);
                 }
             }
-
             if($request->hasFile('image_multi')) {
                 foreach ($request->file('image_multi') as $ke => $value) {
                       $images = $request->file('image_multi')[$ke];
                       $destinationPath = "images/";
                       $fileName = $images->getClientOriginalName();
                       $fileupload = $images->move($destinationPath,$fileName);
-<<<<<<< HEAD
                       $post_image = [
                           'post_id' => $post_id,
                           'image' => $request->get('images/',$fileName)
@@ -115,20 +103,13 @@ class PostController extends Controller
                       DB::table('post_image')->insert($post_image);
                 }
             }
-=======
-                    $post_image = [
-                      'post_id' => $post_id,
-                      'image' => $request->get('images/',$fileName)
-                    ];
+          $post_image = [
+            'post_id' => $post_id,
+            'image' => $request->get('images/',$fileName)
+          ];
 
-                    DB::table('post_image')->insert($post_image);
-              }
-          }
->>>>>>> aebea37ff346bb5969d090d0ff40c30672708ac2
-
-        }
-
-
+          DB::table('post_image')->insert($post_image);
+    }
 
     	return redirect()->to('create_post')->with('success','Created Successful');
     }
@@ -238,39 +219,30 @@ class PostController extends Controller
     	$post->delete();
     	return redirect()->to('posts')->with('success','Deleted Successful');
     }
-<<<<<<< HEAD
-    public function get_image_folder(Request $request){
-        if($request->hasFile('image_multi')) {
-          foreach ($request->file('image_multi') as $ke => $value) {
-            $images = $request->file('image_multi')[$ke];
-            $destinationPath = "images/";
-            $fileName = $images->getClientOriginalName();
-            $fileupload = $images->move($destinationPath,$fileName);
-            
-        }
-      }
-    }
-=======
-
-      //multiple delete
-      public function multiple_delete_post(Request $request)
+    public function store(Request $request){
+      if($request->hasfile('filename'))
       {
-        $ids=$request->get('ids');
-        // dd($ids);  
-       
-        $post=DB::delete('delete from posts where id in('.implode(',',$ids).')');
-        // foreach($post as $value){
-        //   $post_img=[
-        //     'post_id' => $ids,
-        //   ];
-        // }
-        // DB::table('post_image')->delete($post_image);
-        // $dbs=DB::table('page_categories')->whereIn('page_id',explode(',',$ids))->delete();
-        // DB::table('post_image')->whereIn('post_id','=',$ids)->delete();
-        return back();
+         foreach($request->file('filename') as $image)
+         {
+             $name=$image->getClientOriginalName();
+             $image->move(public_path().'/images/', $name);  
+             $data[] = $name;  
+         }
       }
+      return redirect()->to('create_post')->with('success', 'Your images has been successfully');
+    }
+    // public function displayImage($filename) {
+    //   $input = $request->all();
 
->>>>>>> aebea37ff346bb5969d090d0ff40c30672708ac2
+    //   if($file = $request->file('file')){
+    //       $name = $file->getClientOriginalName();
+
+    //       $file->move('images', $name);
+
+    //       $input['path'] = $name;
+    //     }
+    //     Post::create($input);
+    // }
 
 
 }
