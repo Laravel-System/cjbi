@@ -35,8 +35,12 @@
       }
       .modal-dialog{
         width:1450px!important;
-        height:900px!important;
-        
+        height:900px!important;        
+      }
+      .modal{
+        clear: both;
+        overflow:visible!important;
+        overflow-y:none!important;
       }
       div.file-preview{
         overflow: scroll!important;
@@ -60,17 +64,43 @@
         display: none;
       }
       .image-checkbox-checked{
-        border-color: #f58723;
+        border-color: #0073aa;
+         
       }
       .box_img{
         height:150px;
-        float:left;
+        float:left!important;
         margin-top:40px;
-        width:200px;
+        width:180px;
         margin:5px;
+        border:1px solid #ccc;
       }
       .item{
         margin-top:40px;
+        float:left;
+        
+      }
+      .item{
+        overflow: auto!important;
+        height:400px;
+      }
+      .modal-footer{
+        margin-top:10px;
+        float:right;
+        width:100%;
+        background-color:#eee;
+      }
+      #show_image{
+        height:100px;
+        width:100px;
+        float:left;
+        border:1px solid #eee;
+        padding:5px;
+        margin:5px;
+      }
+      #show_image img{
+        width:100%;
+        height:100%;          
       }
   </style>
 </head>
@@ -109,10 +139,8 @@
         <script>
             $(document).ready(function () {
                 $('#dataTables-example').dataTable({                  
-                  "aaSorting": []  // for clear 
-                            
-                });
-                
+                  "aaSorting": []  // for clear                             
+                });                
             });
         </script>
 

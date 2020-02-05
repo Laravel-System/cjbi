@@ -27,8 +27,7 @@
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                    
                           <thead>
-                              <tr>
-                           
+                              <tr>                           
                               <th>
                                 <input type="checkbox" class="selectall"> All
                               </th>
@@ -42,13 +41,13 @@
                             @if(count($post) > 0 )
                               @foreach($post->sortByDesc('updated_at') as $p)
                               <tr>
+                              <td></td>
                                   <td>{{ $p->title }}</td>
                                   <td>@if(count($p->cate)>0)
                                         {{ $p->cate->first()->name }}
                                     @else
                                         NULL
                                     @endif
-
                                 </td>
                                 <td>
                                   @if($p->status == 0)

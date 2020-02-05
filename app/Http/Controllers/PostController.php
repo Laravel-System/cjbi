@@ -125,26 +125,21 @@ class PostController extends Controller
 
     public function post_edit_post(Request $request,$id)
     {
-
-    	$this->validate($request,[
-            'title' => 'required'
+        $this->validate($request,[
+              'title' => 'required'
         ]);
-
         //show title
         if($request->show_title==1){
           $value=1;
         }else{
           $value=0;
         }
-
-
         if($request->link != Null){
           $link = str_slug($request->link ,'-');
         }else{
           $link = str_slug($request->title,'-');
         }
         $post = Post::find($id);
-
         if($request->hasFile('image')){
             $images = $request->file('image');
             $destinationPath = "images/";
@@ -157,7 +152,6 @@ class PostController extends Controller
         if($request->translate){
           $link = $request->translate;
         }
-
         $post = [
             'title' => $request->title,
             'action_title'=>$value,
@@ -173,7 +167,7 @@ class PostController extends Controller
             'unpublish_date' => $request->unpublish_date,
             'created_at' => date('Y-m-d'),
             'updated_at' => date('y-m-d h:i:s')
-                ];
+          ];
 
         $post_id = Post::where('id','=',$id)->update($post);
 
@@ -219,7 +213,8 @@ class PostController extends Controller
     	$post->delete();
     	return redirect()->to('posts')->with('success','Deleted Successful');
     }
-    public function store(Request $request){
+
+    public function upl_image(Request $request){
       if($request->hasfile('filename'))
       {
          foreach($request->file('filename') as $image)
@@ -231,7 +226,28 @@ class PostController extends Controller
       } 
       return redirect()->to('create_post')->with('success', 'Your images has been successfully');
     }
-    
- 
+
+    public function show_image(){
+      $imagesDirectory = "images/";
+        if(is_dir($imagesDirectory))
+        {
+          $opendirectory = opendir($imagesDirectory);
+          
+            while (($image = readdir($opendirectory)) !== false)
+          {
+            if(($image == '.') || ($image == '..'))
+            {
+              continue;
+            }            
+            $imgFileType = pathinfo($image,PATHINFO_EXTENSION);
+            
+            if(($imgFileType == 'jpg') || ($imgFileType == 'png'))
+            {
+              echo "<img src='images/".$image."' width='200'> ";
+            }
+          }          
+            closedir($opendirectory);        
+        }
+    }
 
 }

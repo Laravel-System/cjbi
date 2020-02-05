@@ -93,8 +93,20 @@
               <div class="form-group">
                 <label>Choose Image Multi Upload</label>
                 <button type="button"  data-toggle="modal" data-target="#myModal">Choose Image Multi Upload</button>
-                </div>
-              <button type="submit" class="btn btn-primary">Submit </button>
+              </div>
+             
+               <div class="col-md-12">
+                
+                <div class="col-md-12">                
+                   <span id="show_image">
+                   
+                   </span>
+                </div> 
+               </div>
+             
+             <div class="form-group col-lg-12">
+                <button type="submit" class="btn btn-primary">Submit </button>
+             </div>
            </div>
 			</form>
 		</div>
@@ -115,10 +127,8 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab">Upload</a>
-
                         </li>
                         <li role="presentation"><a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab">Browse</a>
-
                         </li>
                     </ul>
                     <!-- Tab panes -->
@@ -127,61 +137,90 @@
                           <div class="file-loading">                             
                               <input id="input-b6"  name="filename[]" class="file" type="file" multiple>
                           </div>
-                        </div> 
-                          <div role="tabpanel" class="tab-pane" id="browseTab"><br>                            
-                              <div class="col-lg-12 item">
-                              
-                                <div class="box_img">
-                                  <label class="image-checkbox" title="Img">
-                                      <img src=" images/2.jpg' ">
-                                      <input type="checkbox" name="team[]" value="england" checked="checked" />
-                                  </label>                             
-                                </div> 
-                              
-                              </div>
+                        </div>                                             
+                        <div role="tabpanel" class="tab-pane" id="browseTab"><br>  
+                          <div class="col-lg-12 item">      
+                            <?php
+                                $imagesDirectory = "images/";
+                                if(is_dir($imagesDirectory))
+                                {
+                                  $opendirectory = opendir($imagesDirectory);
+                                  
+                                    while (($image = readdir($opendirectory)) !== false)
+                                  {
+                                    if(($image == '.') || ($image == '..'))
+                                    {
+                                      continue;
+                                    }                                      
+                                    $imgFileType = pathinfo($image,PATHINFO_EXTENSION);                                      
+                                    if(($imgFileType == 'jpg') || ($imgFileType == 'png'))
+                                      {
+                                      // echo "<img src='images/".$image."' width='200'> ";
+                                        ?>                        
+                                          <div class="box_img">
+                                            <label class="image-checkbox" title="<?php echo $image; ?>">
+                                                <img class="ss" src='images/<?php echo $image; ?>' width='200'>
+                                                <input type="checkbox" name="team[]" value="england" checked="checked" />
+                                            </label>                             
+                                          </div>                         
+                                        <?php
+                                      }
+                                  }                                  
+                                  closedir($opendirectory);                                
+                                }
+                            ?>    
+                          </div>                        
                           </div>          
                         </div>
+                    </div>
                 </div>
-            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary  ">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <a class="btn btn-primary" id="btn_save">Save</a>
             </div>
         </div>
-    </form>
+      </form>
     </div>
 </div>
 <script>
-    $("#switch_check").on('change', function(){
+
+  $(document).ready(function() {
+    $('#btn_save').click(function() {        
+       var img = $('#show_image');
+       var image = '<img src="images/2.jpg">';
+       img.append(image);
+    });
+  });
+
+  $("#switch_check").on('change', function(){
       if($(this).is(':checked')){
-         $(this).attr('value','1');
-         $(this).attr("checked", "checked");
-      }else if($(this).val('" "')){
-         $(this).attr('value', '0');
-         $(this).removeAttr("checked", "checked");
-      }
-    }); 
- 
-    $("#feature_check").on('change', function(){
-        if($(this).is(':checked')){
           $(this).attr('value','1');
           $(this).attr("checked", "checked");
-        }else if($(this).val('" "')){
+      }else if($(this).val('" "')){
           $(this).attr('value', '0');
           $(this).removeAttr("checked", "checked");
-        }
-    }); 
+      }
+  }); 
+
+  $("#feature_check").on('change', function(){
+      if($(this).is(':checked')){
+        $(this).attr('value','1');
+        $(this).attr("checked", "checked");
+      }else if($(this).val('" "')){
+        $(this).attr('value', '0');
+        $(this).removeAttr("checked", "checked");
+      }
+  }); 
 </script>
 
 <script>
 $(document).ready(function() {
     $("#input-b6").fileinput({
-        showUpload: false,
-       
+        showUpload: false,       
         dropZoneEnabled: false,
         maxFileCount: 50,
-        mainClass: "input-group-lg"
-         
+        mainClass: "input-group-lg"         
     });
 });
 </script>
