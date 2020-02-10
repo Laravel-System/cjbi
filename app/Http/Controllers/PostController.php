@@ -13,10 +13,10 @@ use DB;
 class PostController extends Controller
 {
     public function index_post()
-    {
+    { 
     	$category = Category::where('category_type','=','category')->get();
       // $post  = Post::where('post_type','=','post')      
-      // ->get();
+      // ->get(); 
     	$post = Post::where('post_type','=','post')->orderBy('id','desc')->get();
     	return view('admin.post.index_post',compact('post','category'));
     }

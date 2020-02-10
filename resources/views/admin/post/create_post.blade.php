@@ -97,8 +97,17 @@
                <div class="col-md-12">
                 
                 <div class="col-md-12">                
+<<<<<<< HEAD
                    <span id="show_image">                   
+=======
+                   <span id="show_images">
+
+>>>>>>> 43a38207fde3c2318a9e238b8e37a77aa8078972
                    </span>
+                   <input type="text" id="count">
+                   <!-- <input type="text" id="GFG_DOWN" name=" " value=""> -->
+                   <input type="text" class="name_images">
+                   <div id="GFG_DOWN" style="width:50px;height:50px;"></div>
                 </div> 
                </div>             
              <div class="form-group col-lg-12">
@@ -125,13 +134,15 @@
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab">Upload</a>
                         </li>
-                        <li role="presentation"><a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab">Browse</a>
+                          <li role="presentation">
+                            <a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab">Browse</a>
                         </li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="uploadTab"><br>
-                          <div class="file-loading">                             
+                          <div class="file-loading">    
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">                         
                               <input id="input-b6"  name="filename[]" class="file" type="file" multiple>
                           </div>
                         </div>                                             
@@ -155,6 +166,7 @@
                                         
                                         // echo "<img src='images/".$image."' width='200'> ";
                                         ?>                        
+<<<<<<< HEAD
                                           <div class="box_img">
                                           <!-- <input type='submit' name='delete_file' class="delete_file" value="Delete"> -->
                                             <label class="image-checkbox" title="<?php echo $image; ?>">
@@ -162,6 +174,15 @@
                                                 <input type="checkbox" name="team[]" value="england" checked="checked" /><br>
                                              </label>     
                                           </div>                                                     
+=======
+                                          <div class="nopad text-centers">
+                                            <label class="image-checkbox" title="<?php echo $image; ?>" >
+                                                <img class="img-responsive" src='images/<?php echo $image; ?>' style="height:140px;">
+                                                <input class="chkbx"  type="checkbox" name="image_check" value="<?php echo $image; ?>" />                                                
+                                                <i class="glyphicon glyphicon-ok hidden"></i>
+                                            </label>
+                                        </div>
+>>>>>>> 43a38207fde3c2318a9e238b8e37a77aa8078972
                                         <?php
                                        
                                       }
@@ -180,12 +201,21 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save changes</button>
-                <a class="btn btn-primary" id="btn_save">Save</a>
+                <a> 
+                  click here 
+                </a> 
             </div>
         </div>
       </form>
+     
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+
+<script>
+>>>>>>> 43a38207fde3c2318a9e238b8e37a77aa8078972
 
 <script type="text/javascript">
 
@@ -204,11 +234,44 @@ function deleteFile(id){
 </script>
 <script>
   $(document).ready(function() {
-    $('#btn_save').click(function() {        
-       var img = $('#show_image');
-       var image = '<img src="images/2.jpg">';
-       img.append(image);
+     // add/remove checked class
+     $('body').on('click','a', function() {
+        var text= "";
+        var array = []; 
+        // $('.image-checkbox:checked').each(function() {
+        //     text+=$(this).attr()+'';
+        //     array.push($(this).val()); 
+        // });
+        $("input:checkbox[name=image_check]:checked").each(function(index,element) { 
+            array.push($(this).val()); 
+            $('.name_images').val(array);
+            $('#GFG_DOWN').html($("<img src='images/"+array+"'>")); 
+            alert(index + " : " +$(element(array)).val());
+        }); 
+         //$('#GFG_DOWN').val(array);
+               
+          img.attr(array);
+          text=text.substring(0,text.length-1);
+          var count = $("[type='checkbox']:checked").length;
+          $('#count').val($("[type='checkbox']:checked").length);
+      });
+
+     $(".image-checkbox").each(function() {
+        if($(this).find('input[type="checkbox"]').first().attr("checked")){
+            $(this).addClass('image-checkbox-checked');
+        }else{
+            $(this).removeClass('image-checkbox-checked');
+        }
     });
+
+    // sync the input state
+    $(".image-checkbox").on("click", function(e){
+        $(this).toggleClass('image-checkbox-checked');
+        var $checkbox = $(this).find('input[type="checkbox"]');
+        $checkbox.prop("checked",!$checkbox.prop("checked"));
+    
+        e.preventDefault();
+    });  
   });
 
   $("#switch_check").on('change', function(){
@@ -235,38 +298,18 @@ function deleteFile(id){
 <script>
 $(document).ready(function() {
     $("#input-b6").fileinput({
-        showUpload: false,       
-        dropZoneEnabled: false,
-        maxFileCount: 50,
-        mainClass: "input-group-lg"         
+        theme:'fa',
+        uploadUrl:"form",
+         
+       // allowedFileExtensions:['jpg','png','gif'],
+         
+        maxFileSize:2000,
+        maxFileNum:8,
+            
     });
 });
 </script>
-<script type="text/javascript">
-    jQuery(function ($) {
-        // init the state from the input
-        $(".image-checkbox").each(function () {
-            if ($(this).find('input[type="checkbox"]:not(:checked)').first().attr("checked")) {
-                $(this).addClass('image-checkbox-checked');
-            }
-            else {
-                $(this).removeClass('image-checkbox-checked');
-            }
-        });
-        // sync the state to the input
-        $(".image-checkbox").on("click", function (e) {
-            if ($(this).hasClass('image-checkbox-checked')) {
-                $(this).removeClass('image-checkbox-checked');
-                $(this).find('input[type="checkbox"]').first().removeAttr("checked");
-            }
-            else {
-                $(this).addClass('image-checkbox-checked');
-                $(this).find('input[type="checkbox"]').first().attr("checked", "checked");
-            }
-            e.preventDefault();
-        });
-    });
-</script>
+ 
 @endsection
 <style>
    .switch {
@@ -373,4 +416,6 @@ $(document).ready(function() {
       -moz-transition: All 0.3s ease;
       -o-transition: All 0.3s ease;
    }
+
+  
 </style>
