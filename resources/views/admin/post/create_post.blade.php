@@ -93,17 +93,14 @@
               <div class="form-group">
                 <label>Choose Image Multi Upload</label>
                 <button type="button"  data-toggle="modal" data-target="#myModal">Choose Image Multi Upload</button>
-              </div>
-             
+              </div>             
                <div class="col-md-12">
                 
                 <div class="col-md-12">                
-                   <span id="show_image">
-                   
+                   <span id="show_image">                   
                    </span>
                 </div> 
-               </div>
-             
+               </div>             
              <div class="form-group col-lg-12">
                 <button type="submit" class="btn btn-primary">Submit </button>
              </div>
@@ -140,14 +137,14 @@
                         </div>                                             
                         <div role="tabpanel" class="tab-pane" id="browseTab"><br>  
                           <div class="col-lg-12 item">      
-                            <?php
-                                $imagesDirectory = "images/";
+                            <?php                               
+                                $imagesDirectory = "images/";                                 
                                 if(is_dir($imagesDirectory))
                                 {
-                                  $opendirectory = opendir($imagesDirectory);
-                                  
+                                  $opendirectory = opendir($imagesDirectory);                                  
                                     while (($image = readdir($opendirectory)) !== false)
                                   {
+                                    
                                     if(($image == '.') || ($image == '..'))
                                     {
                                       continue;
@@ -155,20 +152,26 @@
                                     $imgFileType = pathinfo($image,PATHINFO_EXTENSION);                                      
                                     if(($imgFileType == 'jpg') || ($imgFileType == 'png'))
                                       {
-                                      // echo "<img src='images/".$image."' width='200'> ";
+                                        
+                                        // echo "<img src='images/".$image."' width='200'> ";
                                         ?>                        
                                           <div class="box_img">
+                                          <!-- <input type='submit' name='delete_file' class="delete_file" value="Delete"> -->
                                             <label class="image-checkbox" title="<?php echo $image; ?>">
                                                 <img class="ss" src='images/<?php echo $image; ?>' width='200'>
-                                                <input type="checkbox" name="team[]" value="england" checked="checked" />
-                                            </label>                             
-                                          </div>                         
+                                                <input type="checkbox" name="team[]" value="england" checked="checked" /><br>
+                                             </label>     
+                                          </div>                                                     
                                         <?php
+                                       
                                       }
+                                      ?>                                       
+                                      <?php
                                   }                                  
                                   closedir($opendirectory);                                
-                                }
-                            ?>    
+                                }                 
+                                unlink("images/");            
+                              ?>                          ​                          
                           </div>                        
                           </div>          
                         </div>
@@ -183,8 +186,23 @@
       </form>
     </div>
 </div>
-<script>
 
+<script type="text/javascript">
+
+$('.delete').live('click',function(){ 
+  deleteFile( $(this).attr('id') );
+});
+
+function deleteFile(id){
+    $.ajax({
+        url: 'deletefile.php?fileid='+id,
+        success: function() {
+            alert('File deleted.');
+        }
+    });
+}
+</script>
+<script>
   $(document).ready(function() {
     $('#btn_save').click(function() {        
        var img = $('#show_image');
