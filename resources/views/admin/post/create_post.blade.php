@@ -98,9 +98,11 @@
                <div class="col-md-12">
                 
                 <div class="col-md-12">                
-                   <span id="show_image">
-                   
+                   <span id="show_images">
+
                    </span>
+                   <input type="text" id="count">
+                   <input type="text" id="show_image">
                 </div> 
                </div>
              
@@ -128,13 +130,15 @@
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab">Upload</a>
                         </li>
-                        <li role="presentation"><a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab">Browse</a>
+                          <li role="presentation">
+                            <a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab">Browse</a>
                         </li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="uploadTab"><br>
-                          <div class="file-loading">                             
+                          <div class="file-loading">    
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">                         
                               <input id="input-b6"  name="filename[]" class="file" type="file" multiple>
                           </div>
                         </div>                                             
@@ -157,12 +161,14 @@
                                       {
                                       // echo "<img src='images/".$image."' width='200'> ";
                                         ?>                        
-                                          <div class="box_img">
-                                            <label class="image-checkbox" title="<?php echo $image; ?>">
-                                                <img class="ss" src='images/<?php echo $image; ?>' width='200'>
-                                                <input type="checkbox" name="team[]" value="england" checked="checked" />
-                                            </label>                             
-                                          </div>                         
+                                         
+                                          <div class="nopad text-centers">
+                                            <label class="image-checkbox" title="<?php echo $image; ?>" >
+                                                <img class="img-responsive" src='images/<?php echo $image; ?>' style="height:140px;">
+                                                <input class="chkbx" type="checkbox" name="image_check[]" value="1" />                                                
+                                                <i class="glyphicon glyphicon-ok hidden"></i>
+                                            </label>
+                                        </div>
                                         <?php
                                       }
                                   }                                  
@@ -183,14 +189,41 @@
       </form>
     </div>
 </div>
+
+
 <script>
 
   $(document).ready(function() {
-    $('#btn_save').click(function() {        
-       var img = $('#show_image');
-       var image = '<img src="images/2.jpg">';
-       img.append(image);
+     // add/remove checked class
+     $('body').on('click','.image-checkbox', function() {
+        var text= "";
+        var texts="";
+        $('.image-checkbox:checked').each(function() {
+            text+=$(this).attr()+'';
+            texts=$(this).attr();
+        });
+          text=text.substring(0,text.length-1);
+          $('#show_image').val(texts);
+          var count = $("[type='checkbox']:checked").length;
+          $('#count').val($("[type='checkbox']:checked").length);
+      });
+
+     $(".image-checkbox").each(function() {
+        if($(this).find('input[type="checkbox"]').first().attr("checked")){
+            $(this).addClass('image-checkbox-checked');
+        }else{
+            $(this).removeClass('image-checkbox-checked');
+        }
     });
+
+    // sync the input state
+    $(".image-checkbox").on("click", function(e){
+        $(this).toggleClass('image-checkbox-checked');
+        var $checkbox = $(this).find('input[type="checkbox"]');
+        $checkbox.prop("checked",!$checkbox.prop("checked"));
+    
+        e.preventDefault();
+    });  
   });
 
   $("#switch_check").on('change', function(){
@@ -217,38 +250,18 @@
 <script>
 $(document).ready(function() {
     $("#input-b6").fileinput({
-        showUpload: false,       
-        dropZoneEnabled: false,
-        maxFileCount: 50,
-        mainClass: "input-group-lg"         
+        theme:'fa',
+        uploadUrl:"form",
+         
+       // allowedFileExtensions:['jpg','png','gif'],
+         
+        maxFileSize:2000,
+        maxFileNum:8,
+            
     });
 });
 </script>
-<script type="text/javascript">
-    jQuery(function ($) {
-        // init the state from the input
-        $(".image-checkbox").each(function () {
-            if ($(this).find('input[type="checkbox"]:not(:checked)').first().attr("checked")) {
-                $(this).addClass('image-checkbox-checked');
-            }
-            else {
-                $(this).removeClass('image-checkbox-checked');
-            }
-        });
-        // sync the state to the input
-        $(".image-checkbox").on("click", function (e) {
-            if ($(this).hasClass('image-checkbox-checked')) {
-                $(this).removeClass('image-checkbox-checked');
-                $(this).find('input[type="checkbox"]').first().removeAttr("checked");
-            }
-            else {
-                $(this).addClass('image-checkbox-checked');
-                $(this).find('input[type="checkbox"]').first().attr("checked", "checked");
-            }
-            e.preventDefault();
-        });
-    });
-</script>
+ 
 @endsection
 <style>
    .switch {
@@ -355,4 +368,6 @@ $(document).ready(function() {
       -moz-transition: All 0.3s ease;
       -o-transition: All 0.3s ease;
    }
+
+  
 </style>

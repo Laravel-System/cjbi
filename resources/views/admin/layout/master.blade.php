@@ -46,6 +46,7 @@
         overflow: scroll!important;
         height:350px;
       }
+      
       .image-checkbox{
         cursor: pointer;
         box-sizing: border-box;
@@ -67,16 +68,16 @@
         border-color: #0073aa;
          
       }
-      .box_img{
+      .text-centers{
         height:150px;
         float:left!important;
-        margin-top:40px;
+        border:1px solid #eee;
         width:180px;
         margin:5px;
-        border:1px solid #ccc;
+         
       }
       .item{
-        margin-top:40px;
+       
         float:left;
         
       }
@@ -90,14 +91,7 @@
         width:100%;
         background-color:#eee;
       }
-      #show_image{
-        height:100px;
-        width:100px;
-        float:left;
-        border:1px solid #eee;
-        padding:5px;
-        margin:5px;
-      }
+       
       #show_image img{
         width:100%;
         height:100%;          
