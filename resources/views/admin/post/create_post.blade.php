@@ -102,7 +102,9 @@
 
                    </span>
                    <input type="text" id="count">
-                   <input type="text" id="show_image">
+                   <!-- <input type="text" id="GFG_DOWN" name=" " value=""> -->
+                   <input type="text" class="name_images">
+                   <div id="GFG_DOWN" style="width:50px;height:50px;"></div>
                 </div> 
                </div>
              
@@ -161,11 +163,10 @@
                                       {
                                       // echo "<img src='images/".$image."' width='200'> ";
                                         ?>                        
-                                         
                                           <div class="nopad text-centers">
                                             <label class="image-checkbox" title="<?php echo $image; ?>" >
                                                 <img class="img-responsive" src='images/<?php echo $image; ?>' style="height:140px;">
-                                                <input class="chkbx" type="checkbox" name="image_check[]" value="1" />                                                
+                                                <input class="chkbx"  type="checkbox" name="image_check" value="<?php echo $image; ?>" />                                                
                                                 <i class="glyphicon glyphicon-ok hidden"></i>
                                             </label>
                                         </div>
@@ -183,10 +184,13 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save changes</button>
-                <a class="btn btn-primary" id="btn_save">Save</a>
+                <a> 
+                  click here 
+                </a> 
             </div>
         </div>
       </form>
+     
     </div>
 </div>
 
@@ -195,15 +199,23 @@
 
   $(document).ready(function() {
      // add/remove checked class
-     $('body').on('click','.image-checkbox', function() {
+     $('body').on('click','a', function() {
         var text= "";
-        var texts="";
-        $('.image-checkbox:checked').each(function() {
-            text+=$(this).attr()+'';
-            texts=$(this).attr();
-        });
+        var array = []; 
+        // $('.image-checkbox:checked').each(function() {
+        //     text+=$(this).attr()+'';
+        //     array.push($(this).val()); 
+        // });
+        $("input:checkbox[name=image_check]:checked").each(function(index,element) { 
+            array.push($(this).val()); 
+            $('.name_images').val(array);
+            $('#GFG_DOWN').html($("<img src='images/"+array+"'>")); 
+            alert(index + " : " +$(element(array)).val());
+        }); 
+         //$('#GFG_DOWN').val(array);
+               
+          img.attr(array);
           text=text.substring(0,text.length-1);
-          $('#show_image').val(texts);
           var count = $("[type='checkbox']:checked").length;
           $('#count').val($("[type='checkbox']:checked").length);
       });
