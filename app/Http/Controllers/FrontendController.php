@@ -180,7 +180,7 @@ class FrontendController extends Controller
             Mail::send('email.email', ['data' => $data], function ($m) use ($data) {
                     $m->from($data['email'], 'Your Application');
       
-                $m->to('iloveyou.it096@gmail.com', $data['fname'])->subject('From CFA');
+                $m->to('seanghorngva@gmail.com', $data['fname'])->subject('From CFA');
             });
           return Redirect::back()->with('message', 'Thanks for your email!');
     }

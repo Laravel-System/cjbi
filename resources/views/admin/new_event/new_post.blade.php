@@ -17,7 +17,7 @@
 				<div class="panel-heading">
                      List Courses
                 </div>
-				<div class="panel-body">
+				<div class="panel-body">  
 	                <div class="table-responsive">
                   <form method="post"enctype='multipart/form-data'>
                   {{ csrf_field() }}

@@ -90,34 +90,226 @@
                 <label>Choose Image Multi Upload</label>
                 <input type="file" name="image_multi[]" class="form-control" multiple>
               </div>
-              <button type="submit" class="btn btn-primary">Submit </button>
+              <div class="form-group">
+                <label>Choose Image Multi Upload</label>
+                <button type="button"  data-toggle="modal" data-target="#myModal">Choose Image Multi Upload</button>
+              </div>             
+               <div class="col-md-12">
+                
+                <div class="col-md-12">                
+<<<<<<< HEAD
+                   <span id="show_image">                   
+=======
+                   <span id="show_images">
+
+>>>>>>> 43a38207fde3c2318a9e238b8e37a77aa8078972
+                   </span>
+                   <input type="text" id="count">
+                   <!-- <input type="text" id="GFG_DOWN" name=" " value=""> -->
+                   <input type="text" class="name_images">
+                   <div id="GFG_DOWN" style="width:50px;height:50px;"></div>
+                </div> 
+               </div>             
+             <div class="form-group col-lg-12">
+                <button type="submit" class="btn btn-primary">Submit </button>
+             </div>
            </div>
 			</form>
 		</div>
 	</div>
-  <script>
-    $("#switch_check").on('change', function(){
-      if($(this).is(':checked')){
-         $(this).attr('value','1');
-         $(this).attr("checked", "checked");
-      }else if($(this).val('" "')){
-         $(this).attr('value', '0');
-         $(this).removeAttr("checked", "checked");
-      }
-    });
+ 
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form method="post" action="{{url('form')}}" enctype="multipart/form-data">
+        {{csrf_field()}}
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <div role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab">Upload</a>
+                        </li>
+                          <li role="presentation">
+                            <a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab">Browse</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="uploadTab"><br>
+                          <div class="file-loading">    
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">                         
+                              <input id="input-b6"  name="filename[]" class="file" type="file" multiple>
+                          </div>
+                        </div>                                             
+                        <div role="tabpanel" class="tab-pane" id="browseTab"><br>  
+                          <div class="col-lg-12 item">      
+                            <?php                               
+                                $imagesDirectory = "images/";                                 
+                                if(is_dir($imagesDirectory))
+                                {
+                                  $opendirectory = opendir($imagesDirectory);                                  
+                                    while (($image = readdir($opendirectory)) !== false)
+                                  {
+                                    
+                                    if(($image == '.') || ($image == '..'))
+                                    {
+                                      continue;
+                                    }                                      
+                                    $imgFileType = pathinfo($image,PATHINFO_EXTENSION);                                      
+                                    if(($imgFileType == 'jpg') || ($imgFileType == 'png'))
+                                      {
+                                        
+                                        // echo "<img src='images/".$image."' width='200'> ";
+                                        ?>                        
+<<<<<<< HEAD
+                                          <div class="box_img">
+                                          <!-- <input type='submit' name='delete_file' class="delete_file" value="Delete"> -->
+                                            <label class="image-checkbox" title="<?php echo $image; ?>">
+                                                <img class="ss" src='images/<?php echo $image; ?>' width='200'>
+                                                <input type="checkbox" name="team[]" value="england" checked="checked" /><br>
+                                             </label>     
+                                          </div>                                                     
+=======
+                                          <div class="nopad text-centers">
+                                            <label class="image-checkbox" title="<?php echo $image; ?>" >
+                                                <img class="img-responsive" src='images/<?php echo $image; ?>' style="height:140px;">
+                                                <input class="chkbx"  type="checkbox" name="image_check" value="<?php echo $image; ?>" />                                                
+                                                <i class="glyphicon glyphicon-ok hidden"></i>
+                                            </label>
+                                        </div>
+>>>>>>> 43a38207fde3c2318a9e238b8e37a77aa8078972
+                                        <?php
+                                       
+                                      }
+                                      ?>                                       
+                                      <?php
+                                  }                                  
+                                  closedir($opendirectory);                                
+                                }                 
+                                unlink("images/");            
+                              ?>                          ​                          
+                          </div>                        
+                          </div>          
+                        </div>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <a> 
+                  click here 
+                </a> 
+            </div>
+        </div>
+      </form>
+     
+    </div>
+</div>
+<<<<<<< HEAD
+=======
 
 
+<script>
+>>>>>>> 43a38207fde3c2318a9e238b8e37a77aa8078972
 
-    $("#feature_check").on('change', function(){
-        if($(this).is(':checked')){
-          $(this).attr('value','1');
-          $(this).attr("checked", "checked");
-        }else if($(this).val('" "')){
-          $(this).attr('value', '0');
-          $(this).removeAttr("checked", "checked");
+<script type="text/javascript">
+
+$('.delete').live('click',function(){ 
+  deleteFile( $(this).attr('id') );
+});
+
+function deleteFile(id){
+    $.ajax({
+        url: 'deletefile.php?fileid='+id,
+        success: function() {
+            alert('File deleted.');
         }
     });
+}
 </script>
+<script>
+  $(document).ready(function() {
+     // add/remove checked class
+     $('body').on('click','a', function() {
+        var text= "";
+        var array = []; 
+        // $('.image-checkbox:checked').each(function() {
+        //     text+=$(this).attr()+'';
+        //     array.push($(this).val()); 
+        // });
+        $("input:checkbox[name=image_check]:checked").each(function(index,element) { 
+            array.push($(this).val()); 
+            $('.name_images').val(array);
+            $('#GFG_DOWN').html($("<img src='images/"+array+"'>")); 
+            alert(index + " : " +$(element(array)).val());
+        }); 
+         //$('#GFG_DOWN').val(array);
+               
+          img.attr(array);
+          text=text.substring(0,text.length-1);
+          var count = $("[type='checkbox']:checked").length;
+          $('#count').val($("[type='checkbox']:checked").length);
+      });
+
+     $(".image-checkbox").each(function() {
+        if($(this).find('input[type="checkbox"]').first().attr("checked")){
+            $(this).addClass('image-checkbox-checked');
+        }else{
+            $(this).removeClass('image-checkbox-checked');
+        }
+    });
+
+    // sync the input state
+    $(".image-checkbox").on("click", function(e){
+        $(this).toggleClass('image-checkbox-checked');
+        var $checkbox = $(this).find('input[type="checkbox"]');
+        $checkbox.prop("checked",!$checkbox.prop("checked"));
+    
+        e.preventDefault();
+    });  
+  });
+
+  $("#switch_check").on('change', function(){
+      if($(this).is(':checked')){
+          $(this).attr('value','1');
+          $(this).attr("checked", "checked");
+      }else if($(this).val('" "')){
+          $(this).attr('value', '0');
+          $(this).removeAttr("checked", "checked");
+      }
+  }); 
+
+  $("#feature_check").on('change', function(){
+      if($(this).is(':checked')){
+        $(this).attr('value','1');
+        $(this).attr("checked", "checked");
+      }else if($(this).val('" "')){
+        $(this).attr('value', '0');
+        $(this).removeAttr("checked", "checked");
+      }
+  }); 
+</script>
+
+<script>
+$(document).ready(function() {
+    $("#input-b6").fileinput({
+        theme:'fa',
+        uploadUrl:"form",
+         
+       // allowedFileExtensions:['jpg','png','gif'],
+         
+        maxFileSize:2000,
+        maxFileNum:8,
+            
+    });
+});
+</script>
+ 
 @endsection
 <style>
    .switch {
@@ -224,4 +416,6 @@
       -moz-transition: All 0.3s ease;
       -o-transition: All 0.3s ease;
    }
+
+  
 </style>

@@ -17,8 +17,7 @@
                      List Posts
                 </div><br>
                
-                <div class="panel-body">
-        
+                <div class="panel-body">        
                   <div class="table-responsive">
                   <form method="post"enctype='multipart/form-data'>
                   {{ csrf_field() }}
@@ -28,8 +27,7 @@
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                    
                           <thead>
-                              <tr>
-                           
+                              <tr>                           
                               <th>
                                 <input type="checkbox" class="selectall check_me_all"> All
                               </th>
@@ -41,6 +39,7 @@
                           </thead>
                           <tbody class="item_list">
                             @if(count($post) > 0 )
+<<<<<<< HEAD
                               @foreach($post as $p)
                               <tr>  
                                 <td>
@@ -53,6 +52,17 @@
                                       NULL
                                   @endif
 
+=======
+                              @foreach($post->sortByDesc('updated_at') as $p)
+                              <tr>
+                              <td></td>
+                                  <td>{{ $p->title }}</td>
+                                  <td>@if(count($p->cate)>0)
+                                        {{ $p->cate->first()->name }}
+                                    @else
+                                        NULL
+                                    @endif
+>>>>>>> 9b26eb5bc7c62329b897eeedd46611510015610b
                                 </td>
                                 <td>
                                   @if($p->status == 0)

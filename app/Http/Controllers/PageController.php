@@ -79,7 +79,6 @@ class PageController extends Controller
                 }
             }
         }
-
     	return redirect()->to('create_page')->with('success','Successful Create');
     }
     public function get_edit_page($id)

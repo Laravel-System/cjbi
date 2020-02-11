@@ -16,10 +16,87 @@
     <link href="{{url('assets/css/custom.css')}}" rel="stylesheet" />
      <!-- GOOGLE FONTS-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.8/css/fileinput.min.css">
    <link href="{{ url('assets/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
    <link href="{{url('assets/js/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet" />
    <script type="text/javascript" src="{{url('ckeditor/ckeditor.js')}}"></script>
-
+   <style>
+      .border {
+        display: inline-block;
+        border-radius:0;
+        width: 100px;
+        height: 100px;
+        margin: 6px;
+        border:1px solid black;
+      }
+      .modal-content{
+        border-radius:0;
+        height:700px;
+      }
+      .modal-dialog{
+        width:1450px!important;
+        height:900px!important;        
+      }
+      .modal{
+        clear: both;
+        overflow:visible!important;
+        overflow-y:none!important;
+      }
+      div.file-preview{
+        overflow: scroll!important;
+        height:350px;
+      }
+      
+      .image-checkbox{
+        cursor: pointer;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        border: 4px solid transparent;
+        outline: 0;
+        width:100%;
+        height:100%;
+      }
+      .image-checkbox img{
+        width:100%;
+        height:100%;
+      }
+      .image-checkbox input[type="checkbox"]{
+        display: none;
+      }
+      .image-checkbox-checked{
+        border-color: #0073aa;
+         
+      }
+      .text-centers{
+        height:150px;
+        float:left!important;
+        border:1px solid #eee;
+        width:180px;
+        margin:5px;
+         
+      }
+      .item{
+       
+        float:left;
+        
+      }
+      .item{
+        overflow: auto!important;
+        height:400px;
+      }
+      .modal-footer{
+        margin-top:10px;
+        float:right;
+        width:100%;
+        background-color:#eee;
+      }
+       
+      #show_image img{
+        width:100%;
+        height:100%;          
+      }
+  </style>
 </head>
 <body>
     <div id="wrapper">
@@ -48,15 +125,16 @@
      <!-- MORRIS CHART SCRIPTS -->
      <script src="{{url('assets/js/morris/raphael-2.1.0.min.js')}}"></script>
     <script src="{{url('assets/js/morris/morris.js')}}"></script>
-      <!-- CUSTOM SCRIPTS -->
-
-
+    <!-- CUSTOM SCRIPTS -->
       <!-- Include Date Range Picker -->
     <script src="{{url('assets/js/dataTables/jquery.dataTables.js')}}"></script>
     <script src="{{url('assets/js/dataTables/dataTables.bootstrap.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.8/js/fileinput.min.js"></script>
         <script>
             $(document).ready(function () {
-                $('#dataTables-example').dataTable();
+                $('#dataTables-example').dataTable({                  
+                  "aaSorting": []  // for clear                             
+                });                
             });
         </script>
 
