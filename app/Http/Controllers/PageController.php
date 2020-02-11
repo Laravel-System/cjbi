@@ -17,7 +17,7 @@ class PageController extends Controller
     public function index_page()
     {
         $menu = Menu::all();
-    	$post = Post::where('post_type','=','page')->get();
+    	$post = Post::where('post_type','=','page')->orderBy('id','desc')->get();
         $category = Category::where('parent_id','=',0)->get();
     	return view('admin.page.index_page',compact('post','menu','category'));
     }
@@ -149,5 +149,17 @@ class PageController extends Controller
         $post = Post::find($id);
         $post->delete();
         return redirect()->to('pages')->with('success','Deleted Successful');
+    }
+    //multiple delete
+    public function multiple_delete_page(Request $request)
+    {
+      $ids=$request->get('ids');
+    //   dd($ids);
+      $post=DB::delete('delete from posts where id in('.implode(',',$ids).')');
+      foreach($ids as $value){
+        DB::table('post_categories')->where('categorie_id','=',$value)->delete();
+        DB::table('menu_posts')->where('menu_id','=',$value)->delete();
+      }
+      return back();
     }
 }

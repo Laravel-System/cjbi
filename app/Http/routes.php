@@ -54,6 +54,9 @@ Route::get('menu_edit/{id}/edit',['as'=>'menu_edit/{id}/edit','uses'=>'MenuContr
 Route::post('menu_edit/{id}/edit',['as'=>'menu_edit/{id}/edit','uses'=>'MenuController@post_edit_menu','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 Route::get('menu_delete/{id}/delete',['as'=>'menu_delete/{id}/delete','uses'=>'MenuController@get_delete_menu','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 
+//multiple delete menu
+Route::post('multiple_delete_menu',['as'=>'multiple_delete_menu','uses'=>'MenuController@multiple_delete_menu','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);   
+
 //Menu type
 Route::get('menu_type',['as'=>'menu_type','uses'=>'MenuTypeController@index_menu_type','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 Route::get('create_menu_type',['as'=>'create_menu_type','uses'=>'MenuTypeController@get_create_menu_type','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
@@ -167,7 +170,7 @@ Route::get('delete/{id}/coureses_category',['as'=>'delete/{id}/coureses_category
  Route::get('news_events/{id}/edit',['as'=>'news_events/{id}/edit','uses'=>'NEventController@get_edit_news_event_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
  Route::post('news_events/{id}/edit',['as'=>'news_events/{id}/edit','uses'=>'NEventController@post_edit_news_event_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
  Route::get('news_events/{id}/deleted',['as'=>'news_events/{id}/deleted','uses'=>'NEventController@get_delete_news_event_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
-
+ Route::post('multiple_delete_new_event',['as'=>'multiple_delete_new_event','uses'=>'NEventController@multiple_delete_new_event','middleware'=>'roles','roles'=>['Administrator','Admin','User']]); 
 
 
 //Billborad
@@ -193,6 +196,8 @@ Route::post('create_page',['as'=>'create_page','uses'=>'PageController@post_crea
 Route::get('page_edit/{id}/edit',['as'=>'page_edit/{id}/edit','uses'=>'PageController@get_edit_page','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 Route::post('page_edit/{id}/edit',['as'=>'page_edit/{id}/edit','uses'=>'PageController@post_edit_page','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 Route::get('page_delete/{id}/delete',['as'=>'page_delete/{id}/delete','uses'=>'PageController@get_delete_page','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+//multiple delete page
+Route::post('multiple_delete_page',['as'=>'multiple_delete_page','uses'=>'PageController@multiple_delete_page','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);   
 
 //Slide
 Route::get('slides',['as'=>'slides','uses'=>'SlideController@index_slide','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);

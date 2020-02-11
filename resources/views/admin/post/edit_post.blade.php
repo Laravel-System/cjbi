@@ -117,7 +117,6 @@
                     <input type="hidden" id="mult_image_hidden" name="mult_image_hidden" class="image-hidden" class="form-control" value="1">
                   @endif
                @endif
-               
               </div>
               <button type="submit" class="btn btn-primary">Submit </button>
            </div>
