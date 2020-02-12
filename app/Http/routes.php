@@ -275,3 +275,6 @@ Route::post('mail',['as'=>'mail','uses'=>'FrontendController@sendEmail']);
 Route::get('/{local}',['as'=>'/{local}','uses'=>'FrontendController@home_index_local']);
 Route::get('{name}',['as'=>'{name}','uses'=>'FrontendController@home_index_link_local']);
 Route::get('{local}/{name}',['as'=>'{local}/{name}','uses'=>'FrontendController@home_index_link_local']);
+Route::get('admin/testing', function(){
+    return view('welcome');
+});

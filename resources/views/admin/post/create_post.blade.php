@@ -41,6 +41,16 @@
                   </select>
               </div>
               <div class="form-group">
+                <label>Post Format</label><br>
+                  <select class="form-control" name="categorie_id[]">
+                    <option value="0">Select Post Format</option>
+                    <option value="standard">Standard</option>
+                    <option value="file">File</option>
+                    <option value="image">Image</option>
+                    <option value="gallery">Gallery</option>
+                  </select>
+              </div>
+              <div class="form-group">
                 <label>Description</label>
                 <textarea name="description" class="ckeditor" id="editor" placeholder="Enter Description"></textarea>
               </div>
