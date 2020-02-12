@@ -299,3 +299,6 @@ Route::get('{name}',['as'=>'{name}','uses'=>'FrontendController@home_index_link_
 Route::get('{local}/{name}',['as'=>'{local}/{name}','uses'=>'FrontendController@home_index_link_local']);
 //get img from folder
 Route::post('form', 'PostController@upl_image');
+
+// delete img
+Route::post('deleteImg','PostController@deleteImg');

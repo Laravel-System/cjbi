@@ -217,18 +217,6 @@ class PostController extends Controller
     public function upl_image(Request $request){
       if($request->hasfile('filename'))
       {
-<<<<<<< HEAD
-        $ids=$request->get('ids');
-        // dd($ids);
-        $post=DB::delete('delete from posts where id in('.implode(',',$ids).')');
-        foreach($ids as $value){
-          DB::table('post_image')->where('post_id','=',$value)->delete();
-          DB::table('page_categories')->where('page_id','=',$value)->delete();
-        }
-        return back();
-      }
-
-=======
          foreach($request->file('filename') as $image)
          {
              $name=$image->getClientOriginalName();
@@ -239,12 +227,16 @@ class PostController extends Controller
       } 
       return redirect()->to('create_post')->with('success', 'Your images has been successfully');
     }
->>>>>>> 9b26eb5bc7c62329b897eeedd46611510015610b
+ 
 
     public function deleteImg($id) {
-      $file = 'public/uploads/'.$id;
-      Storage::delete($file);
-      return 'Yup it worked!';
+      $name=$image->getClientOriginalName();
+      if($request->hasFile('filename')){
+        $path = storage_path('app/public').'/images/1.jpg';
+          if(File::exists($path)){
+              unlink($path);
+          }
+      }
     }
     
 

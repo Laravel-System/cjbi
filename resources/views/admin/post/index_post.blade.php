@@ -39,7 +39,6 @@
                           </thead>
                           <tbody class="item_list">
                             @if(count($post) > 0 )
-<<<<<<< HEAD
                               @foreach($post as $p)
                               <tr>  
                                 <td>
@@ -52,17 +51,6 @@
                                       NULL
                                   @endif
 
-=======
-                              @foreach($post->sortByDesc('updated_at') as $p)
-                              <tr>
-                              <td></td>
-                                  <td>{{ $p->title }}</td>
-                                  <td>@if(count($p->cate)>0)
-                                        {{ $p->cate->first()->name }}
-                                    @else
-                                        NULL
-                                    @endif
->>>>>>> 9b26eb5bc7c62329b897eeedd46611510015610b
                                 </td>
                                 <td>
                                   @if($p->status == 0)

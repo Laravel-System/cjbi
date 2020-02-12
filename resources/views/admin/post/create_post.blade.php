@@ -166,13 +166,15 @@
                                         ?>                        
                                         
                                           <div class="nopad text-centers">
-                                          <button type="button" class="kv-file-remove btn btn-sm btn-kv btn-default btn-outline-secondary" title="Remove file"><i class="glyphicon glyphicon-trash"></i></button>
-                                            <label class="image-checkbox" title="<?php echo $image; ?>" >
-                                                <img class="img-responsive" src='images/<?php echo $image; ?>' style="height:140px;">
-                                                <input class="chkbx"  type="checkbox" name="image_check" value="<?php echo $image; ?>" />                                                
-                                                <i class="glyphicon glyphicon-ok hidden"></i>
-                                            </label>
-                                        </div>
+                                            <button type="button" id="DeleteImg" data-sample-id="<?php echo $image; ?>" class="kv-file-remove btn btn-sm btn-kv btn-default btn-outline-secondary" title="<?php echo $image; ?>">
+                                              <i class="glyphicon glyphicon-trash" title="<?php echo $image; ?>"></i>
+                                            </button>
+                                              <label class="image-checkbox" title="<?php echo $image; ?>" >
+                                                  <img class="img-responsive" src='images/<?php echo $image; ?>' style="height:140px;">
+                                                  <input class="chkbx"  type="checkbox" name="image_check" value="<?php echo $image; ?>" />                                                
+                                                  <i class="glyphicon glyphicon-ok hidden"></i>
+                                              </label>
+                                          </div>
                                         <?php
                                        
                                       }
@@ -199,10 +201,8 @@
      
     </div>
 </div> 
- 
 
 <script type="text/javascript">
-
 $('.delete').live('click',function(){ 
   deleteFile( $(this).attr('id') );
 });
@@ -219,14 +219,15 @@ function deleteFile(id){
 <script>
   $(document).ready(function() {
      // add/remove checked class
+     $('body').on('click','#DeleteImg', function(){
+      var title = $(this).data('sample-id');
+      alert(title);
+      $('.image-checkbox').removeClass('.img-responsive');
+     });
      $('body').on('click','a', function() {
         var text= "";
         var array = []; 
         var name_img = $('.name_images');
-        // $('.image-checkbox:checked').each(function() {
-        //     text+=$(this).attr()+'';
-        //     array.push($(this).val()); 
-        // });
         $("input:checkbox[name=image_check]:checked").each(function(index,element) { 
           array.push($(this).val());         
           $('#GFG_DOWN').html($("<img src='images/"+array+"'>")); 
