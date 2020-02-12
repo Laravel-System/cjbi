@@ -46,6 +46,16 @@
                 </select>
               </div>
               <div class="form-group">
+                <label>Post Format</label><br>
+                  <select class="form-control" name="categorie_id[]">
+                    <option value="0">Select Post Format</option>
+                    <option value="standard" <?php  if($post->post_format == 'standard'){echo "selected";}  ?>>Standard</option>
+                    <option value="file" <?php  if($post->post_format == 'file'){echo "selected";}  ?>>File</option>
+                    <option value="image" <?php  if($post->post_format == 'image'){echo "selected";}  ?>>Image</option>
+                    <option value="gallery" <?php  if($post->post_format == 'gallery'){echo "selected";}  ?>>Gallery</option>
+                  </select>
+              </div>
+              <div class="form-group">
                   <label>Language</label>
                   <?php $lang = App\Language::get(); ?>
                   <select class="form-control" name="language">

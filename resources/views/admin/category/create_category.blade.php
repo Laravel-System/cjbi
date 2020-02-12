@@ -48,6 +48,7 @@
                   <!--<option value="single_post">Single Post</option>-->
                   <!--<option value="post_content">Post Content</option>-->
                   <option value="3blog_home">3 Blog Home</option>
+                  <option value="pdf">PDF</option>
                 </select>
               </div>
               <div class="form-group">
