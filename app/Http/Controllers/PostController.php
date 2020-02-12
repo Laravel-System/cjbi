@@ -220,34 +220,19 @@ class PostController extends Controller
          foreach($request->file('filename') as $image)
          {
              $name=$image->getClientOriginalName();
-             $image->move(public_path().'/images/', $name);  
-             $data[] = $name;  
+             $new_img_name = rand(123456,999999)."_".$name;
+             $image->move(public_path().'/images/', $new_img_name);  
+             $data[] = $new_img_name;  
          }
       } 
       return redirect()->to('create_post')->with('success', 'Your images has been successfully');
     }
 
-    public function show_image(){
-      $imagesDirectory = "images/";
-        if(is_dir($imagesDirectory))
-        {
-          $opendirectory = opendir($imagesDirectory);
-          
-            while (($image = readdir($opendirectory)) !== false)
-          {
-            if(($image == '.') || ($image == '..'))
-            {
-              continue;
-            }            
-            $imgFileType = pathinfo($image,PATHINFO_EXTENSION);
-            
-            if(($imgFileType == 'jpg') || ($imgFileType == 'png'))
-            {
-              echo "<img src='images/".$image."' width='200'> ";
-            }
-          }          
-            closedir($opendirectory);        
-        }
+    public function deleteImg($id) {
+      $file = 'public/uploads/'.$id;
+      Storage::delete($file);
+      return 'Yup it worked!';
     }
+    
 
 }

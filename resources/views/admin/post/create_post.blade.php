@@ -97,17 +97,16 @@
                <div class="col-md-12">
                 
                 <div class="col-md-12">                
-<<<<<<< HEAD
                    <span id="show_image">                   
-=======
                    <span id="show_images">
-
->>>>>>> 43a38207fde3c2318a9e238b8e37a77aa8078972
                    </span>
                    <input type="text" id="count">
-                   <!-- <input type="text" id="GFG_DOWN" name=" " value=""> -->
-                   <input type="text" class="name_images">
-                   <div id="GFG_DOWN" style="width:50px;height:50px;"></div>
+                  
+                   <input  name="img_multiple[]" class="name_images">
+                   
+                   <div id="GFG_DOWN" style="width:100px;height:100px;">
+                      
+                   </div>
                 </div> 
                </div>             
              <div class="form-group col-lg-12">
@@ -163,26 +162,17 @@
                                     $imgFileType = pathinfo($image,PATHINFO_EXTENSION);                                      
                                     if(($imgFileType == 'jpg') || ($imgFileType == 'png'))
                                       {
-                                        
-                                        // echo "<img src='images/".$image."' width='200'> ";
+                                     
                                         ?>                        
-<<<<<<< HEAD
-                                          <div class="box_img">
-                                          <!-- <input type='submit' name='delete_file' class="delete_file" value="Delete"> -->
-                                            <label class="image-checkbox" title="<?php echo $image; ?>">
-                                                <img class="ss" src='images/<?php echo $image; ?>' width='200'>
-                                                <input type="checkbox" name="team[]" value="england" checked="checked" /><br>
-                                             </label>     
-                                          </div>                                                     
-=======
+                                        
                                           <div class="nopad text-centers">
+                                          <button type="button" class="kv-file-remove btn btn-sm btn-kv btn-default btn-outline-secondary" title="Remove file"><i class="glyphicon glyphicon-trash"></i></button>
                                             <label class="image-checkbox" title="<?php echo $image; ?>" >
                                                 <img class="img-responsive" src='images/<?php echo $image; ?>' style="height:140px;">
                                                 <input class="chkbx"  type="checkbox" name="image_check" value="<?php echo $image; ?>" />                                                
                                                 <i class="glyphicon glyphicon-ok hidden"></i>
                                             </label>
                                         </div>
->>>>>>> 43a38207fde3c2318a9e238b8e37a77aa8078972
                                         <?php
                                        
                                       }
@@ -191,8 +181,7 @@
                                   }                                  
                                   closedir($opendirectory);                                
                                 }                 
-                                unlink("images/");            
-                              ?>                          ​                          
+                               ?>                          ​                          
                           </div>                        
                           </div>          
                         </div>
@@ -209,13 +198,8 @@
       </form>
      
     </div>
-</div>
-<<<<<<< HEAD
-=======
-
-
-<script>
->>>>>>> 43a38207fde3c2318a9e238b8e37a77aa8078972
+</div> 
+ 
 
 <script type="text/javascript">
 
@@ -238,19 +222,16 @@ function deleteFile(id){
      $('body').on('click','a', function() {
         var text= "";
         var array = []; 
+        var name_img = $('.name_images');
         // $('.image-checkbox:checked').each(function() {
         //     text+=$(this).attr()+'';
         //     array.push($(this).val()); 
         // });
         $("input:checkbox[name=image_check]:checked").each(function(index,element) { 
-            array.push($(this).val()); 
-            $('.name_images').val(array);
-            $('#GFG_DOWN').html($("<img src='images/"+array+"'>")); 
-            alert(index + " : " +$(element(array)).val());
-        }); 
-         //$('#GFG_DOWN').val(array);
-               
-          img.attr(array);
+          array.push($(this).val());         
+          $('#GFG_DOWN').html($("<img src='images/"+array+"'>")); 
+          name_img.val(array); 
+        });
           text=text.substring(0,text.length-1);
           var count = $("[type='checkbox']:checked").length;
           $('#count').val($("[type='checkbox']:checked").length);
@@ -300,12 +281,16 @@ $(document).ready(function() {
     $("#input-b6").fileinput({
         theme:'fa',
         uploadUrl:"form",
-         
-       // allowedFileExtensions:['jpg','png','gif'],
-         
+        showUpload:false,
+        showCancel: true,
+        initialPreviewAsData: true,
+        overwriteInitial: false,
+        allowedFileExtensions:['jpg','png','gif'],         
         maxFileSize:2000,
         maxFileNum:8,
-            
+        dataType: 'json',
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|doc|docx|pdf|txt)$/i,
+           
     });
 });
 </script>
