@@ -17,11 +17,15 @@
 				<div class="panel-heading">
                      List Courses
                 </div>
-				<div class="panel-body">
+				<div class="panel-body">  
 	                <div class="table-responsive">
+                  <form method="post"enctype='multipart/form-data'>
+                  {{ csrf_field() }}
+                  <button formaction="{{url('multiple_delete_new_event')}}" type="submit" class="all_delete Delete" style="background:;color:red;margin-bottom:5px;">Delete all selected</button>
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                           <thead>
+                            <thead>
                                <tr>
+                               <th style="width:40px;"><input type="checkbox" class="selectall check_me_all"> All</th>
                                  <th>Title</th>
                                  <th>Language</th>
                                  <th>Category</th>
@@ -29,10 +33,11 @@
                                  <th>Action</th>
                                </tr>
                            </thead>
-                           <tbody>
+                           <tbody class="item_list">
                              @if(count($post) > 0 )
                                @foreach($post as $p)
                                <tr>
+                               <td><input type="checkbox" class="selectbox check_me" name="ids[]" value="{{$p->id}}"></td>
                                    <td>{{ $p->title }}</td>
                                    <?php $lang = App\Language::get(); ?>
                                    <td>@foreach($lang as $language) @if($language->id == $p->language){{ $language->name }}@endif @endforeach</td>
@@ -59,6 +64,7 @@
                            @endif
                            </tbody>
                        </table>
+                      </form>
 	                </div>
 	            </div>
 	        </div>
@@ -351,7 +357,7 @@
         }
     });
 </script>
-
+<script src="{{url('js/multiple_checkbox.js')}}"></script>
 @endsection
 <style>
    .switch {

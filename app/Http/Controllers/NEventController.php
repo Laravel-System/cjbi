@@ -92,7 +92,7 @@ class NEventController extends Controller
 public function index_news_event_post()
 {
   $category = Category::where('category_type','=','cat_news_event')->get();
-  $post = Post::where('post_type','=','news_event')->get();
+  $post = Post::where('post_type','=','news_event')->orderBy('id','desc')->get();
   return view('admin.new_event.new_post',compact('post','category'));
 }
 public function get_create_news_event_post()
@@ -279,14 +279,27 @@ public function post_edit_news_event_post(Request $request,$id)
 
   return redirect()->to('news_events')->with('success','Updated Successful');
 }
-public function get_delete_news_event_post($id)
-{
-  DB::table('page_categories')->where('page_id','=',$id)->delete();
-  $post = Post::find($id);
-    DB::table('post_image')->where('post_id','=',$id)->delete();
-  $post->delete();
-  return redirect()->to('news_events')->with('success','Deleted Successful');
-}
+  public function get_delete_news_event_post($id)
+  {
+    DB::table('page_categories')->where('page_id','=',$id)->delete();
+    $post = Post::find($id);
+      DB::table('post_image')->where('post_id','=',$id)->delete();
+    $post->delete();
+    return redirect()->to('news_events')->with('success','Deleted Successful');
+  }
+
+    //multiple delete
+    public function multiple_delete_new_event(Request $request)
+    {
+      $ids=$request->get('ids');
+      // dd($ids);
+      $post=DB::delete('delete from posts where id in('.implode(',',$ids).')');
+      foreach($ids as $value){
+        DB::table('post_image')->where('post_id','=',$value)->delete();
+        DB::table('page_categories')->where('page_id','=',$value)->delete();
+      }
+      return back();
+    }
 
 
 }

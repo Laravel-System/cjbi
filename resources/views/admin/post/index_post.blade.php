@@ -22,14 +22,14 @@
                   <form method="post"enctype='multipart/form-data'>
                   {{ csrf_field() }}
                   
-                  <button formaction="{{url('multiple_delete_post')}}" type="submit" style="background:#990000;color:white;">Delete all selected</button>
+                  <button formaction="{{url('multiple_delete_post')}}" type="submit" class="all_delete Delete" style="background:;color:red;margin-bottom:5px;">Delete all selected</button>
                
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                    
                           <thead>
                               <tr>                           
                               <th>
-                                <input type="checkbox" class="selectall"> All
+                                <input type="checkbox" class="selectall check_me_all"> All
                               </th>
                                 <th>Title</th>
                                 <th>Category</th>
@@ -37,8 +37,22 @@
                                 <th>Action</th>
                               </tr>
                           </thead>
-                          <tbody>
+                          <tbody class="item_list">
                             @if(count($post) > 0 )
+<<<<<<< HEAD
+                              @foreach($post as $p)
+                              <tr>  
+                                <td>
+                                  <input type="checkbox" class="selectbox check_me" name="ids[]" value="{{$p->id}}">
+                                </td>
+                                <td>{{ $p->title }}</td>
+                                <td>@if(count($p->cate)>0)
+                                      {{ $p->cate->first()->name }}
+                                  @else
+                                      NULL
+                                  @endif
+
+=======
                               @foreach($post->sortByDesc('updated_at') as $p)
                               <tr>
                               <td></td>
@@ -48,6 +62,7 @@
                                     @else
                                         NULL
                                     @endif
+>>>>>>> 9b26eb5bc7c62329b897eeedd46611510015610b
                                 </td>
                                 <td>
                                   @if($p->status == 0)
@@ -71,20 +86,6 @@
           </div>
     </div>
   </div>
-<script>
-  $(document).ready(function(){
-    $('.selectall').click(function () {    
-      $('.selectbox').prop('checked',$(this).prop('checked'));    
-    });
-    $('.selectbox').click(function(){
-      var total=$('.selectbox').length;
-      var number=$('.selectbox:checked').lenght;
-      if(total==number){
-        $('.selectall').prop('checked',true);
-      }else{
-        $('.selectall').prop('checked',false);
-      }
-    });
-  });
-</script>
+<script src="{{url('js/multiple_checkbox.js')}}"></script>
+
 @endsection

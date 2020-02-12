@@ -16,7 +16,7 @@ class MenuController extends Controller
     public function index_menu()
     {
         $menu_type = Menu_type::all();
-    	$menu = Menu::all();
+    	$menu = Menu::orderBy('id','desc')->get();
     	return view('admin.menu.index_menu',compact('menu','menu_type'));
     }
     public function get_create_menu()
@@ -250,4 +250,19 @@ class MenuController extends Controller
 
         return redirect()->to('menus')->with('success','Deleted Successful');
     }
+
+    //multiple delete
+    public function multiple_delete_menu(Request $request)
+    {
+      $ids=$request->get('ids');
+      // dd($ids);
+      $post=DB::delete('delete from menus where id in('.implode(',',$ids).')');
+      foreach($ids as $value){
+        DB::table('menu_posts')->where('menu_id','=',$value)->delete();
+        // DB::table('page_categories')->where('page_id','=',$value)->delete();
+      }
+      return back();
+    }
+
+
 }
