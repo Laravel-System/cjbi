@@ -45,9 +45,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        // return parent::render($request, $e);
-        if(! config('app.debug') && ! $this->isHttpException($e)){
-            return response()->view('errors.503');
-        }
+        return parent::render($request, $e);
+        // if(! config('app.debug') && ! $this->isHttpException($e)){
+        //     return response()->view('errors.503');
+        // }
     }
 }

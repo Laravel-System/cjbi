@@ -1,5 +1,7 @@
 <?php
-
+Route::get('admins', function(){
+    return view('welcomes');
+});
 Route::get('admin',array('as'=>'admin','uses'=>'HomeController@index'));
 
 //Role
@@ -297,6 +299,7 @@ Route::post('mail',['as'=>'mail','uses'=>'FrontendController@sendEmail']);
 Route::get('/{local}',['as'=>'/{local}','uses'=>'FrontendController@home_index_local']);
 Route::get('{name}',['as'=>'{name}','uses'=>'FrontendController@home_index_link_local']);
 Route::get('{local}/{name}',['as'=>'{local}/{name}','uses'=>'FrontendController@home_index_link_local']);
+<<<<<<< HEAD
 
 //get img from folder
 Route::post('form', 'PostController@upl_image');
@@ -308,3 +311,5 @@ Route::get('admin/testing', function(){
     return view('welcome');
 });
 
+=======
+>>>>>>> daf817a552a99ffb013091535ff4e9918886d818
