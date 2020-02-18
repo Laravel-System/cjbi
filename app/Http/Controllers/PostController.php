@@ -227,7 +227,6 @@ class PostController extends Controller
       } 
       return redirect()->to('create_post')->with('success', 'Your images has been successfully');
     }
- 
 
     public function deleteImg($id) {
       $name=$image->getClientOriginalName();

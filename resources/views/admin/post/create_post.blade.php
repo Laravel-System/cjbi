@@ -52,16 +52,6 @@
                   </select>
               </div>
               <div class="form-group">
-                <label>Post Format</label><br>
-                  <select class="form-control" name="categorie_id[]">
-                    <option value="0">Select Post Format</option>
-                    <option value="standard">Standard</option>
-                    <option value="file">File</option>
-                    <option value="image">Image</option>
-                    <option value="gallery">Gallery</option>
-                  </select>
-              </div>
-              <div class="form-group">
                 <label>Description</label>
                 <textarea name="description" class="ckeditor" id="editor" placeholder="Enter Description"></textarea>
               </div>
@@ -112,11 +102,10 @@
                    </span>
                    <input type="text" id="count">
                   
-                   <input  name="img_multiple[]" class="name_images">
-                   
+                   <input type="file" name="img_multiple[]" class="name_images" accept="image/*;capture=camera" multiple>
                    <div id="GFG_DOWN" style="width:100px;height:100px;">
-                      
                    </div>
+
                 </div> 
                </div>             
              <div class="form-group col-lg-12">
@@ -174,20 +163,18 @@
                                       {
                                      
                                         ?>                        
-                                        
-                                          <div class="nopad text-centers" id="text">
-                                            <button type="button" id="DeleteImg" data-sample-id="<?php echo $image; ?>" class="kv-file-remove btn btn-sm btn-kv btn-default btn-outline-secondary" title="<?php echo $image; ?>"value="<?php echo $image; ?>">
-                                              <i class="glyphicon glyphicon-trash" title="<?php echo $image; ?>"></i>
+                                          <div class="nopad text-centers" id="labels" value="<?php echo $image; ?>">
+                                            <button type="button" id="DeleteImg" title="<?php echo $image; ?>" value="<?php echo $image; ?>" class="kv-file-remove btn btn-sm btn-kv btn-default btn-outline-secondary"  >
+                                              <i class="glyphicon glyphicon-trash"></i>
                                             </button>
 
-                                              <label class="image-checkbox" id="img" value="<?php echo $image; ?>" >
-                                                  <img class="img-responsive" src='images/<?php echo $image; ?>' style="height:140px;">
+                                              <label class="image-checkbox" id="label" value="<?php echo $image; ?>" title="<?php echo $image; ?>" >
+                                                  <img class="img-responsive" id="img" src='images/<?php echo $image; ?>' style="height:140px;">
                                                   <input class="chkbx"  type="checkbox" name="image_check" value="<?php echo $image; ?>" />                                                
                                                   <i class="glyphicon glyphicon-ok hidden"></i>
                                               </label>
                                           </div>
                                         <?php
-                                       
                                       }
                                       ?>                                       
                                       <?php
@@ -233,25 +220,25 @@ function deleteFile(id){
   $(document).ready(function() {
      // add/remove checked class
 
-    
      $('body').on('click','#DeleteImg', function(){
-       if($(this).data('sample-id')===$('#img').val()){
-         alert(1);
-       }
-      //  $(this).remove();
-      // 
-      // title.remove();
-      // alert(1);
+        alert('44');
+        var title = $(this).attr('value');
+        var label = $("#label").attr('value');
+        var labels = $('#labels');
+        if(title == label){
+          labels.remove();
+        }
+
      });
 
-     $('body').on('click','a', function() {
+     $('body').on('click','a', function() {       
         var text= "";
         var array = []; 
         var name_img = $('.name_images');
         $("input:checkbox[name=image_check]:checked").each(function(index,element) { 
           array.push($(this).val());         
-          $('#GFG_DOWN').html($("<img src='images/"+array+"'>")); 
-          name_img.val(array); 
+          $('#GFG_DOWN').append($("<img src='images/"+array+"'>")); 
+          name_img.append(array); 
         });
           text=text.substring(0,text.length-1);
           var count = $("[type='checkbox']:checked").length;
@@ -318,6 +305,7 @@ $(document).ready(function() {
  
 @endsection
 <style>
+
    .switch {
       position: relative;
       display: block;
