@@ -30,25 +30,31 @@
               </div>
               <div class="form-group">
                 <label>Description</label>
-                <textarea name="description" class="form-control" rows="3"></textarea>
+                <textarea name="description" class="ckeditor" id="editor" class="form-control" rows="3"></textarea>
               </div>
               <div class="form-group">
-                <label>Style :</label>
+                <label>Styles:</label>
                 <select name="block" class="form-control">
                   <option value="non">None</option>
-									<option value="about_us">About Us</option>
-									<option value="team">Team  </option>
-                  <option value="post_list">List Post</option>
-									<!--<option value="gallery">Gallery</option>-->
-									<option value="product_list">Product</option>
-                  <option value="member">Member</option>
-									<!--<option value="3blog"> 3 Blog</option>-->
-									<option value="contact_us"> Contact Us</option>
+                  <option value="about_us">About Us</option>
+                  <option value="about_cjbi">About Cjbi</option>
+                  <option value="event">Event  </option>
+                  <option value="upcoming_event">Upcoming event  </option>
+                  <option value="partner">Partner  </option>
+									<option value="information">Information  </option>
+                  <option value="team">Team</option>
+                  <option value="slide">Slide</option>
+								  <option value="welcom">WELCOME TO CJBI</option>
+                  <option value="contact_us"> Contact Us</option>
+                  <option value="become_member">Become Member</option>
+                  <option value="single">Single</option>
+                  <option value="form_profile">Form Profile</option>
+                  <option value="form_member">Form Member</option>
+                  <option value="member_login">Login Form</option>
                   <option value="gallery">Gallery</option>
-                  <!--<option value="single_post">Single Post</option>-->
-                  <!--<option value="post_content">Post Content</option>-->
-                  <option value="3blog_home">3 Blog Home</option>
-                  <option value="pdf">PDF</option>
+                  <option value="video_upload">Video</option>
+                  <option value="list_newsletter">Newsletter</option>
+                  
                 </select>
               </div>
               <div class="form-group">

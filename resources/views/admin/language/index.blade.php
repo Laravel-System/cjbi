@@ -10,8 +10,8 @@
 <hr/>
 <div class="row">
     <div class="col-md-12">
-    <!--<a href="{{url('lang/create')}}" class="btn btn-primary create">-->
-    <!--        Create Language</a>-->
+    <a href="{{url('lang/create')}}" class="btn btn-primary create">
+           Create Language</a>
         <div class="panel panel-default">
             <div class="panel-heading">
                     List Language

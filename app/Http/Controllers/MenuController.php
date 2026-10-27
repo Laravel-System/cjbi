@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use DB;
+use DB; 
 use App\Menu;
 use App\Menu_type;
 use App\Post;
@@ -36,6 +36,8 @@ class MenuController extends Controller
       }else{
         $link = str_slug($request->name,'-');
       }
+      if($request->translation)$link = $request->translation;
+
     	if($request->hasFile('image')){
             $images = $request->file('image');
             $destinationPath = "images/";
@@ -136,7 +138,7 @@ class MenuController extends Controller
         }
         if($request->ordering != $menu->ordering){
         //   $order = $request->ordering + 0.01;
-        $lang = $request->language;
+          $lang = $request->language;
           $count_menu = Menu::where('language',$lang)->orderBy('ordering','asc')->get();
           $count = count($count_menu);
           // $order = $request->ordering + 0.01;
@@ -193,6 +195,7 @@ class MenuController extends Controller
         }else{
           $link = str_slug($request->name,'-');
         }
+        if($request->translation)$link = $request->translation;
         $data = [
             'name' => $request->name,
             'parent_id' => $request->parent_id,

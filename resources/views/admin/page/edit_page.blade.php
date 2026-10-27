@@ -146,43 +146,43 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
   $(document).ready(function(){
-  	$('#add_on_rows').click(function(event){
-  				 event.preventDefault();
-  						var rows = '<tr id="add_row">' +
-  											 '<td>'+
-  											 '<select class="form-control" name="categorie_id[]">' +
-  	 											'@if(count($category)>0)' +
-  	 											'<option value="">Select Catgory</option>' +
-  	 												'@foreach($category as $key => $cat)' +
+    $('#add_on_rows').click(function(event){
+           event.preventDefault();
+              var rows = '<tr id="add_row">' +
+                         '<td>'+
+                         '<select class="form-control" name="categorie_id[]">' +
+                           '@if(count($category)>0)' +
+                           '<option value="">Select Catgory</option>' +
+                             '@foreach($category as $key => $cat)' +
                               '@if($cat->category_type != "branch")' +
-  	 														'<option value="{{ $cat->id }}">{{ $cat->name }}</option>' +
+                                 '<option value="{{ $cat->id }}">{{ $cat->name }}</option>' +
                               '@endif' +
-  	 												'@endforeach' +
-  	 											'@endif' +
-  	 										'</select>'  +
-  	 									  '</td>'  +
-  											'<td>'+
-  											 	'<select class = "form-control"name="position[]">' +
-  	 											'<option value = "position_1">Position 1</option>' +
-  	 											'<option value = "position_2">Position 2</option>' +
-  	 											'<option value = "position_3">Position 3</option>' +
-  	 											'<option value = "position_4">Position 4</option>' +
-  	 											'<option value = "position_5">Position 5</option>' +
-  	 											'<option value = "position_6">Position 6</option>' +
-  	 											'<option value = "position_7">Position 7</option>' +
-  	 											'<option value = "position_8">Position 8</option>' +
-  												'<option value = "position_9">Position left (only for template left Sidebar)</option>' +
-  												'<option value="position_10">Position right (only for template right Sidebar)</option>' +
-  	 										'</select>'+
-  											 '</td>'+
-  											 '<td><a href="#" class="btn btn-danger remove_rows" >delete</a></td>'
-  											 '</tr>';
-  					 $('#body_add').append(rows)
-  			 });
-  			 $('#body_add').on('click','.remove_rows',function(event){
-  						 event.preventDefault();
-  						$(this).parent().parent().remove();
-  				});
+                             '@endforeach' +
+                           '@endif' +
+                         '</select>'  +
+                         '</td>'  +
+                        '<td>'+
+                           '<select class = "form-control"name="position[]">' +
+                           '<option value = "position_1">Position 1</option>' +
+                           '<option value = "position_2">Position 2</option>' +
+                           '<option value = "position_3">Position 3</option>' +
+                           '<option value = "position_4">Position 4</option>' +
+                           '<option value = "position_5">Position 5</option>' +
+                           '<option value = "position_6">Position 6</option>' +
+                           '<option value = "position_7">Position 7</option>' +
+                           '<option value = "position_8">Position 8</option>' +
+                          '<option value = "position_9">Position left (only for template left Sidebar)</option>' +
+                          '<option value="position_10">Position right (only for template right Sidebar)</option>' +
+                         '</select>'+
+                         '</td>'+
+                         '<td><a href="#" class="btn btn-danger remove_rows" >delete</a></td>'
+                         '</tr>';
+             $('#body_add').append(rows)
+         });
+         $('#body_add').on('click','.remove_rows',function(event){
+               event.preventDefault();
+              $(this).parent().parent().remove();
+          });
   });
   </script>
 @endsection

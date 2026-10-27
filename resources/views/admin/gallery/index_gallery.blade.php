@@ -33,7 +33,7 @@
                     			@foreach($gallery as $g)
 	                        	<tr>
 	                                <td>{{ $g->name }}</td>
-	                                <td>{{ $g->cat_gallery->name }}</td>
+	                                <td>{{ $g->cat_gallery?$g->cat_gallery->name:'' }}</td>
 	                                
 	                                <td>
 	                                	@if($g->user_id)

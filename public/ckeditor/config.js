@@ -2,7 +2,7 @@
  * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
-var bas_url = "http://kasp.finance/";
+var bas_url = "http://localhost/cjbi/public/cjbi_3/public/";
 CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserBrowseUrl = bas_url+'kcfinder/browse.php?opener=ckeditor&type=files';
    	config.filebrowserImageBrowseUrl = bas_url+'kcfinder/browse.php?opener=ckeditor&type=images';

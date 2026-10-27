@@ -51,6 +51,10 @@
                 </select>
               </div>
               <div class="form-group">
+                <label>Choose Image Feature</label>
+                <input type="file" name="feature_image" class="form-control">
+              </div>
+              <div class="form-group">
                 <label>Upload File</label>
                  <input type="file" name="images[]" class="form-control" multiple>
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">

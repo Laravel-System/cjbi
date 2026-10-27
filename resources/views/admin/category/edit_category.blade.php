@@ -30,25 +30,31 @@
               </div>
               <div class="form-group">
                 <label>Description</label>
-                <textarea name="description" class="form-control" rows="3">{{ $cat->description }}</textarea>
+                <textarea name="description" class="ckeditor" id="editor" class="form-control" rows="3">{{ $cat->description }}</textarea>
               </div>
               <div class="form-group">
                 <label>Style</label>
 								<select name="block" class="form-control">
 									<option value="non">None</option>
-									<option value="about_us" <?php if($cat->block == "about_us"){ echo "selected";}  ?> >About Us</option>
-									<option value="team" <?php if($cat->block == "team"){ echo "selected";}  ?> >Team  </option>
-                  <option value="post_list" <?php if($cat->block == "post_list"){ echo "selected";}  ?> > List Post</option>
-									<!--<option value="gallery" <?php //if($cat->block == "gallery"){ echo "selected";}  ?> >Gallery</option>-->
-									<option value="product_list" <?php if($cat->block == "product_list"){ echo "selected";}  ?> >Product</option>
-                  <option value="member" <?php if($cat->block == "member"){ echo "selected";}  ?> >Member</option>
-									<!--<option value="3blog" <?php //if($cat->block == "3blog"){ echo "selected";}  ?> > 3 Blog</option>-->
-									<option value="contact_us" <?php //if($cat->block == "contact_us"){ echo "selected";}  ?> > Contact Us</option>
-                  <option value="gallery" <?php if($cat->block == "gallery"){ echo "selected";}  ?> >Gallery</option>
-                  <!--<option value="single_post" <?php //if($cat->block == "single_post"){ echo "selected";}  ?> >Single Post</option>-->
-                  <!--<option value="post_content" <?php //if($cat->block == "post_content"){ echo "selected";}  ?> >Post Content</option>-->
-                  <option value="3blog_home" <?php if($cat->block == "3blog_home"){ echo "selected";}  ?> >3 Blog Home</option>
-								</select>
+                  <option value="about_us" <?php if($cat->block == "about_us"){ echo "selected";}  ?> >About Us</option>
+                  <option value="about_cjbi" <?php if($cat->block == "about_cjbi"){ echo "selected";}  ?> >About Cjbi</option>
+                  <option value="upcoming_event" <?php if($cat->block == "upcoming_event"){ echo "selected";}  ?> >Upcoming Event  </option>
+                  <option value="event" <?php if($cat->block == "event"){ echo "selected";}  ?> >Event  </option>
+                  <option value="partner" <?php if($cat->block == "partner"){ echo "selected";}  ?> >Partner</option>
+ 									<option value="team" <?php if($cat->block == "team"){ echo "selected";}  ?> >Team</option>
+                  <option value="contact_us" <?php if($cat->block == "contact_us"){ echo "selected";}  ?> >Contact Us</option>
+                   <option value="become_member" <?php if($cat->block == "become_member"){ echo "selected";}  ?> > Become Member</option>
+                   <option value="slide" <?php if($cat->block == "slide"){ echo "selected";}  ?> > Slide</option>
+                   <option value="welcom" <?php if($cat->block == "welcom"){ echo "selected";}  ?> > Welcome</option>
+                   <option value="single" <?php if($cat->block == "single"){ echo "selected";}  ?> > Single</option>
+                   <option value="information" <?php if($cat->block == "information"){ echo "selected";}  ?> > Information</option>
+                   <option value="form_profile" <?php if($cat->block == "form_profile"){ echo "selected";}  ?> > Form Profile</option>
+                   <option value="form_member" <?php if($cat->block == "form_member"){ echo "selected";}  ?> > Form Member</option>
+                   <option value="member_login" <?php if($cat->block == "member_login"){ echo "selected";}  ?> > Login Form</option>
+                   <option value="gallery" <?php if($cat->block == "gallery"){ echo "selected";}  ?> > Gallery</option>
+                   <option value="video_upload" <?php if($cat->block == "video_upload"){ echo "selected";}  ?> > Video</option>
+                   <option value="list_newsletter" <?php if($cat->block == "list_newsletter"){ echo "selected";}  ?> > Newsletter</option>
+ 								</select>
               </div>
               <div class="form-group">
                 <label>Parent</label>

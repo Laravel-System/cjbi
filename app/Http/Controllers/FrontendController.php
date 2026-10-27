@@ -27,6 +27,7 @@ class FrontendController extends Controller
     // Add new language
     public function home_index_local(Request $request ,$locale)
     {
+   
         if($request->segment(1) == 'en') {
             $title = 'home';
             $local = "1";
@@ -74,29 +75,26 @@ class FrontendController extends Controller
 
        $link = $name;
         $posts = Post::where('post_type','=','post')->where('language','=',1)->get();
-       
         return view('template.index',compact('title','link','page','name','posts'));
 
     }
     public function home_index_link_local(Request $request ,$locale, $name )
     { 
-       if($request->segment(1) == 'en') {
-            $local = "1";
-        }elseif($request->segment(1) == 'kh') {
+        $code = $request->segment(1);
+       if($request->segment(1) == 'jp') {
             $local = "2";
-        }elseif($request->segment(1) == 'cn') {
-            $local = "3";
+        }elseif($request->segment(1) == 'en') {
+            $local = "1";
         }else {
             $local = "1";
+            return redirect()->to('en/'.$code);
         }
         $title = $name;
-       
         $linkd = Menu::where('link','=',$name)->where('language','=',$local)->first();
-        $linkd1 = Menu::where('link','=',$name)->where('language','=',1)->first();
-        // dd();
+        $linkd1 = Menu::where('link','=',$name)->where('language','=',$local)->first();
         if(count($linkd) > 0){
 
-          $page1 = Post::where('id','=',$linkd->pages->first()->id)->where('post_type','=','page')->first(); 
+          $page1 = Post::where('id','=',$linkd->pages->first()->id)->where('post_type','=','page')->where('language','=',$local)->first(); 
            //if($page1->description){
 
              $page = $page1;
@@ -104,22 +102,24 @@ class FrontendController extends Controller
            // }else{
            //    $page =  Post::where('id','=',$linkd1->pages->first()->id)->where('post_type','=','page')->first(); 
            // }
+           
         }else{
-          $page =  Post::where('id','=',$linkd1->pages->first()->id)->where('post_type','=','page')->first(); 
+            
+          $page =  Post::where('id','=',$linkd1->pages->first()->id)->where('post_type','=','page')->where('language','=',$local)->first(); 
              
         }
         $link = $name;
 
         $posts = Post::where('post_type','=','post')->get();
-       
-        return view('template.index',compact('title','page','link','local','name','posts'));
+        return view('template.index',compact('title','page','link','local','name','posts','code'));
     }
     public function get_single($link){
       $title = $link;
         $data = Post::where('link','=',$link)->first();
         return view('frontend.post_detail',compact('data','title'));
     }
-    public function get_post_detail(Request $request,$link ,$id){
+    public function get_post_detail(Request $request,$local,$id,$link=''){
+        
         if($request->segment(1) == 'kh') {
             $local = 2;
         }elseif($request->segment(1) == 'en') {
@@ -141,20 +141,19 @@ class FrontendController extends Controller
         }
         return view('template.post_detail',compact('data' ,'link','local'));
    }
-   public function get_post_detail_local(Request $request,$local,$link,$id){
-        if($request->segment(1) == 'kh') {
+   public function get_post_detail_local(Request $request,$local,$id,$link=''){
+        $code = $local;
+        if($request->segment(1) == 'jp') {
             $local = 2;
-            $locale = "kh";
+            $locale = "jp";
         }elseif($request->segment(1) == 'en') {
             $local = 1;
             $locale = "en";
-        }elseif($request->segment(1) == 'cn') {
-            $local = 3;
         }else {
             $local = 1;
             $locale="en";
         }
-        $data1 = Post::where('language','=',$local)->where('link','=',$link)->first();
+        $data1 = Post::where('language','=',$local)->where('link','=',$link)->where('id',$id)->first();
         if(count($data1) > 0){
           $link = $link."/".$id."/detail";
           $data = $data1;
@@ -164,7 +163,8 @@ class FrontendController extends Controller
         //   $data = $data1;
             return Redirect()->back();
         }
-        return view('template.post_detail',compact('data' ,'link','local','locale'));
+
+        return view('template.single',compact('data' ,'link','local','locale','code'));
     }
    public function sendEmail(Request $request)
     {
@@ -183,5 +183,14 @@ class FrontendController extends Controller
                 $m->to('seanghorngva@gmail.com', $data['fname'])->subject('From CFA');
             });
           return Redirect::back()->with('message', 'Thanks for your email!');
+    }
+    public function getSearch(Request $request){
+        $code = $request->segment(1);
+        $contents = Post::with('cate')->where('title','LIKE','%'.$request->search.'%')->get();
+        return view('template.single', compact('code','contents'));
+    }
+    public function galleryDetail($code, $id){
+        $gal = Gallery::where('id',$id)->first();
+        return view('template.gallery_detail', compact('code','gal'));
     }
 }

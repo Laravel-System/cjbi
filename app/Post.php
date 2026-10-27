@@ -55,4 +55,7 @@ class Post extends Model
     public function lang(){
       return $this->belongsTo('App\Language','language');
     }
+    public function translation(){
+      return $this->belongsTo(static::class, 'translation');
+    }
 }

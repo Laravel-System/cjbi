@@ -10,6 +10,7 @@ use App\Gallery;
 use App\Cat_Gallery;
 use App\Gallery_Image;
 use App\Post;
+use Image;
 use Auth;
 
 class GalleryController extends Controller
@@ -31,11 +32,26 @@ class GalleryController extends Controller
     {
     	$this->validate($request,[
     		'name' => 'required'
-    	]);
+        ]);
+
+        if($request->hasFile('feature_image')){
+            $images = $request->file('feature_image');
+            $destinationPath = "Galleries/";
+            $imgNames = "gal_".$images->getClientOriginalName();
+
+            $imgName = str_replace(" ","-",$imgNames);
+            $fileupload = $images->move($destinationPath,$imgName);
+            $thumbnailpaths = 'Galleries/'.$imgName;
+            Image::make($thumbnailpaths)->fit(220)->save($thumbnailpaths);
+            
+        }else{
+             $imgName ="";
+        }
 
     	$gallery = [
             'name' => $request->name,
             'language' => $request->language,
+            'feature_image' => $imgName,
     		'status' => $request->status,
     		'category_galleries_id' => $request->category_galleries,
             'user_id' => Auth::user()->id,
@@ -60,6 +76,10 @@ class GalleryController extends Controller
                     $destinationPath ="Galleries/";
                     $fileName = $image[$key]->getClientOriginalName();                  
                     $updload = $image[$key]->move($destinationPath,$fileName);
+                    copy($destinationPath.$fileName, "Galleries/galleries_image/res_".$fileName);
+                    $thumbnailpath = 'Galleries/galleries_image/res_'.$fileName;
+                    Image::make($thumbnailpath)->fit(220)->save($thumbnailpath);
+
                      $im_gallery = [
                         'gallerie_id' => $gallery_id,
                         'image' => $fileName,
@@ -91,14 +111,27 @@ class GalleryController extends Controller
     }
     public function post_edit_gallery(Request $request,$id)
     {
+        $galData = Gallery::where('id','=',$id)->first();
     	$this->validate($request,[
             'name' => 'required',
            
         ]);
+        if($request->hasFile('feature_image')){
+            $images = $request->file('feature_image');
+            $destinationPath = "Galleries/";
+            $imgNames = $images->getClientOriginalName();
+            $imgName = str_replace(" ","-",$imgNames);
+            $fileupload = $images->move($destinationPath,$imgName);
+            $thumbnailpaths = 'Galleries/'.$imgName;
+            Image::make($thumbnailpaths)->fit(220)->save($thumbnailpaths);
+        }else{
+             $imgName = $galData->feature_image;
+        }
 
         $gallery = [
             'name' => $request->name,
             'language' => $request->language,
+            'feature_image' => $imgName,
             'status' => $request->status,
             'category_galleries_id' => $request->category_galleries,
             'user_id' => Auth::user()->id,
@@ -106,15 +139,17 @@ class GalleryController extends Controller
                ];
         $gallery_id = Gallery::where('id','=',$id)->update($gallery);
 
-        // if($gallery_id)
-        // {
-        //     $post_galleries =[
-        //         'gallerie_id' => $gallery_id,
-        //         'post_id' => $request->post_id,
-        //             ];
 
-        //     DB::table('post_galleries')->insert($post_galleries);
-        // }
+        if($request->post_id != (!empty($galData->posts_gallery())?$galData->posts_gallery()->first()->id:0))
+        {
+            DB::table('post_galleries')->where('gallerie_id',$id)->delete();
+            $post_galleries =[
+                'gallerie_id' => $id,
+                'post_id' => $request->post_id,
+                    ];
+
+            DB::table('post_galleries')->insert($post_galleries);
+        }
           
 
             if($request->hasFile('images')){
@@ -127,6 +162,9 @@ class GalleryController extends Controller
                    // echo $request->file('images')[$key] ."<br/>";
                     $fileName = $request->file('images')[$key]->getClientOriginalName();                
                     $updload = $request->file('images')[$key]->move($destinationPath,$fileName);
+                    copy($destinationPath.$fileName, "Galleries/galleries_image/res_".$fileName);
+                    $thumbnailpath = 'Galleries/galleries_image/res_'.$fileName;
+                    Image::make($thumbnailpath)->fit(220)->save($thumbnailpath);
                    
                      $im_gallery = [
                         'gallerie_id' => $id,

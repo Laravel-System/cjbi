@@ -2,6 +2,8 @@
 Route::get('admins', function(){
     return view('welcomes');
 });
+
+Route::get('test_mail/test', ['as'=>'test_mail/test','uses'=>'MemberController@test_mail']);
 Route::get('admin',array('as'=>'admin','uses'=>'HomeController@index'));
 
 //Role
@@ -74,8 +76,11 @@ Route::post('create_post',['as'=>'create_post','uses'=>'PostController@post_crea
 Route::get('edit/{id}/post',['as'=>'edit/{id}/post','uses'=>'PostController@get_edit_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 Route::post('edit/{id}/post',['as'=>'edit/{id}/post','uses'=>'PostController@post_edit_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
 Route::get('delete/{id}/post',['as'=>'delete/{id}/post','uses'=>'PostController@get_delete_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+Route::get('create_category_of_post', ['as'=>'create_category_of_post','uses'=>'PostController@get_create_category_of_post']);
+Route::post('create_category_of_post', ['as'=>'create_category_of_post','uses'=>'PostController@post_create_category_of_post']);
 //multiple delete post
 Route::post('multiple_delete_post',['as'=>'multiple_delete_post','uses'=>'PostController@multiple_delete_post','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);   
+Route::get('delete_post_type/{id}',['as'=>'delete_post_type/{id}','uses'=>'PostController@delete_post_type','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);   
 
 //Category
 Route::get('categorys',['as'=>'categorys','uses'=>'CategoryController@index_category','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
@@ -280,7 +285,30 @@ Route::get('login',['as'=>'login','uses'=>'LoginController@get_login']);
 Route::post('login',['as'=>'login','uses'=>'LoginController@post_login']);
 Route::get('logout',['as'=>'logout','uses'=>'LoginController@dologout']);
 Route::get('product/search_product_get',['as'=>'product/search_product_get','uses'=>'FrontendController@search_product_get']);
-
+// Member
+Route::get('member/account',['as'=>'member/account', 'uses'=>'MemberController@getMemberAccount']);
+Route::get('member/account/create',['as'=>'member/account/create', 'uses'=>'MemberController@getMemberAccountCreate']);
+Route::post('member/account/create',['as'=>'member/account/create', 'uses'=>'MemberController@postMemberAccountCreate']);
+Route::get('member/account/edit/{id}',['as'=>'member/account/edit/{id}', 'uses'=>'MemberController@getMemberAccountEdit']);
+Route::post('member/account/edit/{id}',['as'=>'member/account/edit/{id}', 'uses'=>'MemberController@postMemberAccountEdit']);
+Route::get('member/account/delete/{id}',['as'=>'member/account/delete/{id}', 'uses'=>'MemberController@get_delete_member_account']);
+Route::get('member',['as'=>'member','uses'=>'MemberController@index']);
+Route::get('member/create',['as'=>'member/create','uses'=>'MemberController@getCreate']);
+Route::post('member/create',['as'=>'member/create','uses'=>'MemberController@postCreate']);
+Route::get('member/{id}',['as'=>'member/{id}','uses'=>'MemberController@getEdit']);
+Route::post('member/{id}',['as'=>'member/{id}','uses'=>'MemberController@postEdit']);
+Route::get('delete_member/{id}',['as'=>'delete_member/{id}','uses'=>'MemberController@deleteMember']);
+Route::get('member_category',['as'=>'member_category','uses'=>'MemberController@index_member_category','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+Route::get('member_category/create',['as'=>'member_category/create','uses'=>'MemberController@get_create_member_category','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+Route::post('member_category/create',['as'=>'member_category/create','uses'=>'MemberController@post_create_member_category','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+Route::get('member_category/{id}/edit',['as'=>'member_category/{id}/edit','uses'=>'MemberController@get_edit_member_category','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+Route::post('member_category/{id}/edit',['as'=>'member_category/{id}/edit','uses'=>'MemberController@post_edit_member_category','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+Route::get('member_category/{id}/deleted',['as'=>'member_category/{id}/deleted','uses'=>'MemberController@get_delete_member_category','middleware'=>'roles','roles'=>['Administrator','Admin','User']]);
+Route::post('{local}/login/member', 'MemberController@memberLogin');
+Route::get('{local}/member/logout', 'MemberController@memberLogout');
+Route::post('register/member', ['as'=>'register/member','uses'=>'MemberController@memberRegister']);
+Route::get('member_register/index','MemberController@get_member_register');
+Route::get('member_register/get_mem_form/{id}',['as'=>'member_register/get_mem_form/{id}','uses'=>'MemberController@show_member_html_form']);
 
 
 Route::get('/',function(){
@@ -291,25 +319,23 @@ Route::get('brand/{link}',['as'=>'brand/{link}','uses'=>'FrontendController@get_
 // Route::get('{link}/detail',['as'=>'{link}/detail','uses'=>'FrontendController@get_single']);
 // Post Detail
 Route::get('{link}/{id}/detail',['as'=>'{link}/{id}/detail','uses'=>'FrontendController@get_post_detail']);
-Route::get('{local}/{link}/{id}/detail',['as'=>'{local}/{link}/{id}/detail','uses'=>'FrontendController@get_post_detail_local']);
+Route::get('{local}/detail/{id}/{link?}',['as'=>'{local}/detail/{id}/{link?}','uses'=>'FrontendController@get_post_detail_local']);
 // Send Mail
 Route::post('mail',['as'=>'mail','uses'=>'FrontendController@sendEmail']);
 // Home in FrondEnd
 // Route::get('{link}',['as'=>'{link}','uses'=>'FrontendController@home_index']);
-Route::get('/{local}',['as'=>'/{local}','uses'=>'FrontendController@home_index_local']);
+// Route::get('/{local}',['as'=>'/{local}','uses'=>'FrontendController@home_index_local']);
+Route::get('/{local}',function(){
+    return redirect()->to('en/'.Request()->segment(1));
+});
 Route::get('{name}',['as'=>'{name}','uses'=>'FrontendController@home_index_link_local']);
 Route::get('{local}/{name}',['as'=>'{local}/{name}','uses'=>'FrontendController@home_index_link_local']);
-<<<<<<< HEAD
 
 //get img from folder
 Route::post('form', 'PostController@upl_image');
 
 // delete img
 Route::post('deleteImg','PostController@deleteImg');
+Route::get('{code}/search/content','FrontendController@getSearch');
+Route::get('{code}/gallery/detail/{id}',['as'=>'{code}/gallery/detail/{id}','uses'=>'FrontendController@galleryDetail']);
 
-Route::get('admin/testing', function(){
-    return view('welcome');
-});
-
-=======
->>>>>>> daf817a552a99ffb013091535ff4e9918886d818

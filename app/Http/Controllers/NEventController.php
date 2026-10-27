@@ -32,7 +32,7 @@ class NEventController extends Controller
           'name' => $request->name,
           'language' => $request->language,
           'description' => $request->description,
-          'block' => 'post_list',
+          'block' => 'new_event',
           'status' => $request->status,
           'category_type' => 'cat_news_event',
           'user_id' => Auth::user()->id,
@@ -62,7 +62,7 @@ class NEventController extends Controller
           'name' => $request->name,
           'language' => $request->language,
           'description' => $request->description,
-          'block' => 'post_list',
+          'block' => 'new_event',
           'category_type' => 'cat_news_event',
           'status' => $request->status,
           'user_id' => Auth::user()->id,
@@ -138,7 +138,8 @@ public function post_create_news_event_post(Request $request)
     $post = [
         'id' => $id_post,
         'title' => $request->title,
-        'action_title'=>$value,
+        // 'action_title'=>$value,
+        'show_image_feature'=>$request->show_image_feature==1?1:0,
         'link' => $link,
         'language' => $request->language,
         'link_download' =>$request->link_download,
@@ -149,8 +150,8 @@ public function post_create_news_event_post(Request $request)
         'user_id' => Auth::user()->id,
         'publish_date' => date('Y-m-d',strtotime($request->publish_date)),
         'unpublish_date' => date('Y-m-d',strtotime($request->unpublish_date)),
-        'event_start_date' => date('Y-m-d h:m',strtotime($request->event_start_date)),
-        'event_end_date' => date('Y-m-d h:m',strtotime($request->event_end_date)),
+        'event_start_date' => date('Y-m-d H:i:s',strtotime($request->event_start_date)),
+        'event_end_date' => date('Y-m-d H:i:s',strtotime($request->event_end_date)),
         'created_at' => date('Y-m-d'),
         'updated_at' => date('Y-m-d'),
             ];
@@ -171,12 +172,12 @@ public function post_create_news_event_post(Request $request)
       if($request->hasFile('image_multi')){
           foreach ($request->file('image_multi') as $ke => $value) {
                   $images = $request->file('image_multi')[$ke];
-                  $destinationPath = "images/";
+                  $destinationPath = "Galleries/";
                   $fileName = $images->getClientOriginalName();
                   $fileupload = $images->move($destinationPath,$fileName);
                 $post_image = [
                       'post_id' => $post_id,
-                      'image' => $request->get('images/',$fileName)
+                      'image' => $request->get('Galleries/',$fileName)
                 ];
 
                 DB::table('post_image')->insert($post_image);
@@ -228,6 +229,7 @@ public function post_edit_news_event_post(Request $request,$id)
     $post = [
         'title' => $request->title,
         'action_title'=>$value,
+        'show_image_feature'=>$request->show_image_feature==1?1:0,
         'link' => $link,
         'language' => $request->language,
         'link_download' =>$request->link_download,
@@ -238,8 +240,8 @@ public function post_edit_news_event_post(Request $request,$id)
         'user_id' => Auth::user()->id,
         'publish_date' => date('Y-m-d',strtotime($request->publish_date)),
         'unpublish_date' => date('Y-m-d',strtotime($request->unpublish_date)),
-        'event_start_date' => date('Y-m-d h:m',strtotime($request->event_start_date)),
-        'event_end_date' => date('Y-m-d h:m',strtotime($request->event_end_date)),
+        'event_start_date' => date('Y-m-d H:i:s',strtotime($request->event_start_date)),
+        'event_end_date' => date('Y-m-d H:i:s',strtotime($request->event_end_date)),
         'created_at' => date('Y-m-d'),
             ];
 
@@ -260,12 +262,12 @@ public function post_edit_news_event_post(Request $request,$id)
         DB::table('post_image')->where('post_id','=',$id)->delete();
           foreach ($request->file('image_multi') as $ke => $value) {
                   $images = $request->file('image_multi')[$ke];
-                  $destinationPath = "images/";
+                  $destinationPath = "Galleries/";
                   $fileName = $images->getClientOriginalName();
                   $fileupload = $images->move($destinationPath,$fileName);
                 $post_image = [
                       'post_id' => $id,
-                      'image' => $request->get('images/',$fileName)
+                      'image' => $request->get('Galleries/',$fileName)
                 ];
 
                 DB::table('post_image')->insert($post_image);

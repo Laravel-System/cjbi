@@ -1,3 +1,21 @@
+<?php
+      function limit_text($text, $limit) {
+            if (str_word_count($text, 0) > $limit) {
+            $words = str_word_count($text, 2);
+            $pos = array_keys($words);
+            $text = substr($text, 0, $pos[$limit]) . '';
+            }
+            return $text;
+      }
+      function last_text($text, $limit) {
+            if (str_word_count($text, 0) > $limit) {
+            $words = str_word_count($text, 2);
+            $pos = array_keys($words);
+            $text = substr($text, 0, $pos[$limit]) . '';
+            }
+            return $text;
+      }
+?>
 @extends('template.layout.master')
 
 @section('content')
@@ -10,9 +28,15 @@
 <?php   $cate_product = App\Category::where('category_type','=','product')->get();   ?>
 <!-- position_1 -->
 @elseif(count($page->categories) > 0)
+<?php
+      $key = 0;
+      foreach($page->categories as $c){
+            if($c->block == 'slide')$key=1;
+      }
+?>
+ @if($key == 0)@include('template.banner')@endif
 
             @foreach($page->categories as $cat)
-
             @if($cat->cat_position->position == 'position_1')
                   @if($cat->block)
                         <?php  $tem = $cat->block; ?>

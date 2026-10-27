@@ -17,19 +17,53 @@
                 <label>Title</label>
                 <input type="text" name="title" class="form-control" value="{{ $post->title }}">
               </div>
+              <?php $post_type = DB::table('category_of_post')->get(); ?>
               <div class="form-group">
-                <label for="">show title</label>
-                <label class="switch">
-                  <input class="switch-input show_title" type="checkbox" id="switch_check" name="show_title" value="{{$post->action_title}}" 
+                <label>Post Type</label><br>
+                  <select class="form-control" name="category_of_post">
+                  <option value="0">Select Post Type</option>
+                  @if(count($post_type)>0)
+                    @foreach($post_type as $c)
+                      <option value="{{$c->id}}" <?php if($post->category_of_post == $c->id){echo "selected";} ?> >{{$c->name}}</option>
+                    @endforeach
+                  @endif
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Position</label>
+                <input type="text" name="position" class="form-control" value="{{ $post->position }}">
+              </div>
+
+              <div class="form-group" style="display: -webkit-inline-box;">
+                <div class="btn-check">
+                    <label for="">show title</label>
+                    <label class="switch">
+                      <input class="switch-input show_title" type="checkbox" id="switch_check" name="show_title" value="{{$post->action_title}}" 
                       @if($post->action_title==1)
                         checked
                       @else                            
                       @endif
-                  >
-                  <span class="switch-label" data-on="On" data-off="Off"></span> 
-                  <span class="switch-handle"></span> 
-                </label>                                       
+                    >
+                      <span class="switch-label" data-on="On" data-off="Off"></span>
+                      <span class="switch-handle"></span>
+                    </label>
+                </div>
+                <div class="btn-check">
+                  <label for="">show Featured Image</label>
+                  <label class="switch">
+                    <input class="switch-input show_image_feature" type="checkbox" id="switch_show_image_feature"
+                      name="show_image_feature" value="{{$post->show_image_feature}}" 
+                      @if($post->show_image_feature==1)
+                        checked
+                      @else                            
+                      @endif
+                    >
+                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                    <span class="switch-handle"></span>
+                  </label>
+                </div>
               </div>
+
               <div class="form-group">
                 <label>Link</label>
                 <input type="text" name="link" class="form-control" value="{{ $post->link }}">
@@ -76,8 +110,12 @@
                 </select>
               </div>
               <div class="form-group">
-                <label>Price</label>
-                <input type="text" name="link_download" class="form-control" value="{{ $post->link_download }}">
+                <label>Link Download</label>
+                <textarea name="link_download" class="ckeditor" id="editor" >{{ $post->link_download }}</textarea>
+              </div>
+              <div class="form-group">
+                <label>Facebook Link</label>
+                <input type="text" name="location_job" class="form-control" value="{{$post->location_job}}">
               </div>
               <div class="form-group">
                 <label>Description</label>
@@ -93,7 +131,7 @@
               <div class="form-group">
               <label>Publish Date</label>
               <div class='input-group date' id='datetimepicker1'>
-                  <input type='text' name="publish_date" class="form-control" value="{{ date('d-m-Y',strtotime($post->publish_date)) }}"/>
+                  <input type='text' name="publish_date" class="form-control" value="{{ date('d-m-Y h:i:s',strtotime($post->publish_date)) }}"/>
                   <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                   </span>
               </div>
@@ -120,7 +158,7 @@
                 <input type="file" id="multi" name="image_multi[]" class="form-control" multiple>
                 @if($post->image_post)
                   @foreach ($post->image_post as $key => $value)
-                    <img src="{{ url('images/'.$value->image) }}" class="mult-img-close" style="width:100px;"/>
+                    <img src="{{ url('Galleries/'.$value->image) }}" class="mult-img-close" style="width:100px;"/>
                   @endforeach
                   @if($post->image_post->sum('post_id') > 0)
                     <a class="btn btn-danger mult_closes"><i class="fa fa-ban"></i></a>
@@ -157,7 +195,15 @@
          $(this).removeAttr("checked", "checked");
       }
     });
-
+    $("#switch_show_image_feature").on('change', function () {
+    if ($(this).is(':checked')) {
+      $(this).attr('value', '1');
+      $(this).attr("checked", "checked");
+    } else if ($(this).val('" "')) {
+      $(this).attr('value', '0');
+      $(this).removeAttr("checked", "checked");
+    }
+  });
 
 
     $("#feature_check").on('change', function(){

@@ -28,7 +28,6 @@ class PostController extends Controller
     }
     public function post_create_post(Request $request)
     {
-
     	$this->validate($request,[
     		'title' => 'required'
       ]);
@@ -64,13 +63,17 @@ class PostController extends Controller
         $post = [
             'id' => $id_post,
             'title' => $request->title,
+            'category_of_post' => $request->category_of_post,
             'action_title'=>$value,
+            'show_image_feature'=>$request->show_image_feature==1?1:0,
             'link' => $link,
+            'position' => $request->position,
             'link_download' =>$request->link_download,
+            'location_job' =>$request->location_job,
             'language'=>$request->language,
             'description' => $request->description,
             'status' => $request->status,
-            'publish_date' => $request->publish_date,
+            'publish_date' => date("Y-m-d h:i:s", strtotime($request->publish_date)),
             'post_type' => 'post',
             'image' => $fileName,
             'user_id' => Auth::user()->id,
@@ -93,22 +96,22 @@ class PostController extends Controller
             if($request->hasFile('image_multi')) {
                 foreach ($request->file('image_multi') as $ke => $value) {
                       $images = $request->file('image_multi')[$ke];
-                      $destinationPath = "images/";
+                      $destinationPath = "Galleries/";
                       $fileName = $images->getClientOriginalName();
                       $fileupload = $images->move($destinationPath,$fileName);
                       $post_image = [
                           'post_id' => $post_id,
-                          'image' => $request->get('images/',$fileName)
+                          'image' => $request->get('Galleries/',$fileName)
                       ]; 
                       DB::table('post_image')->insert($post_image);
                 }
             }
-          $post_image = [
-            'post_id' => $post_id,
-            'image' => $request->get('images/',$fileName)
-          ];
+        //   $post_image = [
+        //     'post_id' => $post_id,
+        //     'image' => $request->get('images/',$fileName)
+        //   ];
 
-          DB::table('post_image')->insert($post_image);
+        //   DB::table('post_image')->insert($post_image);
     }
 
     	return redirect()->to('create_post')->with('success','Created Successful');
@@ -154,20 +157,25 @@ class PostController extends Controller
         }
         $post = [
             'title' => $request->title,
+            'category_of_post' => $request->category_of_post,
             'action_title'=>$value,
+            'show_image_feature'=>$request->show_image_feature==1?1:0,
             'link' => $link,
+            'position' => $request->position,
             'link_download' =>$request->link_download,
+            'location_job' =>$request->location_job,
             'language'=>$request->language,
             'description' => $request->description,
             'status' => $request->status,
-            'publish_date' => $request->publish_date,
+            'publish_date' => date("Y-m-d h:i:s", strtotime($request->publish_date)),
             'post_type' => 'post',
             'image' => $fileName,
             'user_id' => Auth::user()->id,
             'unpublish_date' => $request->unpublish_date,
-            'created_at' => date('Y-m-d'),
+            // 'created_at' => date('Y-m-d'),
             'updated_at' => date('y-m-d h:i:s')
           ];
+          dd($post);
 
         $post_id = Post::where('id','=',$id)->update($post);
 
@@ -186,12 +194,12 @@ class PostController extends Controller
             DB::table('post_image')->where('post_id','=',$id)->delete();
               foreach ($request->file('image_multi') as $ke => $value) {
                       $images = $request->file('image_multi')[$ke];
-                      $destinationPath = "images/";
+                      $destinationPath = "Galleries/";
                       $fileName = $images->getClientOriginalName();
                       $fileupload = $images->move($destinationPath,$fileName);
                     $post_image = [
                           'post_id' => $id,
-                          'image' => $request->get('images/',$fileName)
+                          'image' => $request->get('Galleries/',$fileName)
                     ];
 
                     DB::table('post_image')->insert($post_image);
@@ -237,6 +245,27 @@ class PostController extends Controller
           }
       }
     }
-    
-
+    public function get_create_category_of_post(Request $request){
+        $id = 0;
+        if($request->has('index')){
+            $post_type = DB::table('category_of_post')->get();
+            return view('admin.post.category_of_post', compact('id','post_type'));
+        }
+        
+        return view('admin.post.category_of_post', compact('id'));
+    }
+    public function post_create_category_of_post(Request $request){
+        if($request->id > 0){
+            DB::table('category_of_post')->where('id',$request->id)->update(['name' => $request->name,'language'=>$request->language]);
+        }else{
+            DB::table('category_of_post')->insert(['name' => $request->name,'language'=>$request->language]);
+        }
+        $id = $request->id;
+        return redirect()->back();
+    }
+    public function delete_post_type(Request $request, $id)
+    {
+    	DB::table('category_of_post')->where('id','=',$id)->delete();
+    	return redirect()->to('create_category_of_post?index=true')->with('success','Deleted Successful');
+    }
 }

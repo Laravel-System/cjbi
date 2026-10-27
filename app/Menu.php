@@ -15,5 +15,12 @@ class Menu extends Model
     public function menu_type(){
     	return $this->belongsTo('App\Menu_type','menu_type_id');
     }
-
+    public function parents()
+    {
+        return $this->belongsTo(static::class, 'parent_id');
+    }
+    public function languages()
+    {
+        return $this->belongsTo('App\Language', 'language');
+    }
 }

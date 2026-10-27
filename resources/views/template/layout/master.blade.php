@@ -1,105 +1,71 @@
-<!doctype html>
-<html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <?php $set = App\Setting::where('language',$local)->first(); ?>
-        <title>{{ $set->website_name }}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
+    //dd(Request()->session()->get('member_id'));
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Cambodia-Japan Association for Business & Investment (CJBI) - Benefits</title>
+<!-- custom-theme -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Driving School Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //custom-theme -->
+<link rel="icon" href="{{ url('template/images/cjbi-fav.ico') }}" type="image/gif">
+<link href="{{url('template/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{url('template/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
+<!-- js -->
+<script type="text/javascript" src="{{url('template/js/jquery-2.1.4.min.js')}}"></script>
+<script src="{{url('template/js/main.js')}}"></script>
+<!-- //js -->
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+<!-- font-awesome-icons -->
+<link href="{{url('template/css/font-awesome.css')}}" rel="stylesheet"> 
+<link rel="stylesheet" href="{{url('template/css/flexslider.css')}}" type="text/css" media="screen" property="" />
+<!-- //font-awesome-icons -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+@if(Request()->segment(1) == "jp")
+<style>
+	html, body, h1,h2,h3,h4,h5,h6, .navbar-default .navbar-nav > li > a, .snippet h1, h2, h3, h4, h5, h6, .wthree-services-right > h1, h2, h3,  h4, h5, h6 {
+		font-family: 'Hiragino',Meiryo,'MS PGothic',sans-serif;
+	}
+</style>
+@endif
+</head>
+<body>
+    <!-- header -->
+    	@include('template.layout.header')
+	<!-- end header -->
 
-        <link rel="shortcut icon" type="image/png" href="{{ url('images/'.$set->favicon_image) }}">
-        <!-- Place favicon.ico in the root directory -->
+	<!-- slide -->
+ 	<!-- end slide -->
 
-		<!-- all css here -->
-		<!-- bootstrap v3.3.7 css -->
-        <link rel="stylesheet" href="{{ url('template/assets/css/bootstrap.min.css') }}">
-		<!-- animate css -->
-        <link rel="stylesheet" href="{{ url('template/assets/css/animate.css') }}">
-		<!-- owl.carousel.2.0.0-beta.2.4 css -->
-        <link rel="stylesheet" href="{{ url('template/assets/css/owl.carousel.css') }}">
-		<!-- font-awesome v4.6.3 css -->
-        <link rel="stylesheet" href="{{ url('template/assets/css/font-awesome.min.css') }}">
-		<!-- magnific-popup.css -->
-        <link rel="stylesheet" href="{{ url('template/assets/css/magnific-popup.css') }}">
-		<!-- slicknav.min.css -->
-        <link rel="stylesheet" href="{{ url('template/assets/css/slicknav.min.css') }}">
-		<!-- style css -->
-        @if(Request::segment(1) == 'kh')
-            <link href="https://fonts.googleapis.com/css?family=Battambang" rel="stylesheet">
-            <link rel="stylesheet" href="{{ url('template/assets/css/styleskh.css') }}">
-        @else
-            <link rel="stylesheet" href="{{ url('template/assets/css/styles.css') }}">
-        @endif
-		<!-- responsive css -->
-        <link rel="stylesheet" href="{{ url('template/assets/css/responsive.css') }}">
-		<!-- modernizr css -->
-        <script src="{{ url('template/assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
-    </head>
-    <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <!-- preloder-wrap -->
-        <div id="cssLoader3" class="preloder-wrap">
-            <div class="loader">
-                <div class="child-common child4"></div>
-                <div class="child-common child3"></div>
-                <div class="child-common child2"></div>
-                <div class="child-common child1"></div>
-            </div>
-        </div>
-        <!-- preloder-wrap -->
-        <!-- search-area -->
-        @include('template.layout.search')
-        <!-- search-area -->
-        <!-- heared area start -->
-        @include('template.layout.head')
-        @include('template.layout.menu')
-        <!-- heared area end -->
+		@yield('content')
 
-        @if(Request::segment(1) == 'home' || Request::segment(2) == 'home')
-            <!-- slider area start -->
-            @include('template.layout.slide')
-            <!-- slider area end -->
-        @else
-            <!-- breadcumb-area start -->
-            @include('template.layout.breadcumb')
-            <!-- breadcumb-area end -->
-        @endif
-        
-        @yield('content')
-		
-		<!-- footer-area start  -->
+	<!-- footer -->
 		@include('template.layout.footer')
-		<!-- footer-area end  -->
-
-		<!-- all js here -->
-		<!-- jquery latest version -->
-        <script src="{{ url('template/assets/js/vendor/jquery-1.12.4.min.js') }}"></script>
-		<!-- bootstrap js -->
-        <script src="{{ url('template/assets/js/bootstrap.min.js') }}"></script>
-		<!-- owl.carousel.2.0.0-beta.2.4 css -->
-        <script src="{{ url('template/assets/js/owl.carousel.min.js') }}"></script>
-		<!-- counterup.main.js -->
-        <script src="{{ url('template/assets/js/counterup.main.js') }}"></script>
-		<!-- isotope.pkgd.min.js -->
-        <script src="{{ url('template/assets/js/imagesloaded.pkgd.min.js') }}"></script>
-		<!-- isotope.pkgd.min.js -->
-        <script src="{{ url('template/assets/js/isotope.pkgd.min.js') }}"></script>
-		<!-- jquery.waypoints.min.js -->
-        <script src="{{ url('template/assets/js/jquery.waypoints.min.js') }}"></script>
-		<!-- jquery.magnific-popup.min.js -->
-        <script src="{{ url('template/assets/js/jquery.magnific-popup.min.js') }}"></script>
-		<!-- jquery.slicknav.min.js -->
-        <script src="{{ url('template/assets/js/jquery.slicknav.min.js') }}"></script>
-		<!-- snake.min.js -->
-        <script src="{{ url('template/assets/js/snake.min.js') }}"></script>
-		<!-- wow js -->
-        <script src="{{ url('template/assets/js/wow.min.js') }}"></script>
-		<!-- plugins js -->
-        <script src="{{ url('template/assets/js/plugins.js') }}"></script>
-		<!-- main js -->
-        <script src="{{ url('template/assets/js/scripts.js') }}"></script>
-    </body>
+	<!-- //footer -->
+<!-- start-smooth-scrolling -->
+<script type="text/javascript" src="{{url('template/js/move-top.js')}}"></script>
+<script type="text/javascript" src="{{url('template/js/easing.js')}}"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+	<script src="{{url('template/js/bootstrap.js')}}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		 			
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+</body>
 </html>

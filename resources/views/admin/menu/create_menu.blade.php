@@ -17,20 +17,31 @@
                 <label>Title</label>
                 <input type="text" name="name" class="form-control">
               </div>
-              <!-- <div class="form-group">-->
-              <!--    <label>Parent</label>-->
-              <!--     <select name="parent_id" class="form-control">-->
-              <!--     <option value="0">Please select parent</option>-->
-              <!--     @if(count($menus)>0)-->
-              <!--      @foreach($menus as $m)-->
-              <!--      <option value="{{ $m->id }}">{{ $m->name }}</option>-->
-              <!--       @endforeach-->
-              <!--      @endif-->
-              <!--    </select>-->
-              <!--</div>-->
+              <div class="form-group">
+                 <label>Parent</label>
+                  <select name="parent_id" class="form-control">
+                  <option value="0">Please select parent</option>
+                  @if(count($menus)>0)
+                   @foreach($menus as $m)
+                   <option value="{{ $m->id }}">{{ $m->name }}</option>
+                    @endforeach
+                   @endif
+                 </select>
+              </div>
               <div class="form-group">
                 <label>Link</label>
                 <input type="text" name="link" class="form-control">
+              </div>
+              <div class="form-group">
+                 <label>Translate To</label>
+                  <select name="translation" class="form-control">
+                  <option value="">Select Menu for translate with</option>
+                  @if(count($menus)>0)
+                   @foreach($menus as $m)
+                   <option value="{{ $m->link }}">{{ $m->name }}</option>
+                    @endforeach
+                   @endif
+                 </select>
               </div>
               <div class="form-group">
                   <label>Menu Type</label>

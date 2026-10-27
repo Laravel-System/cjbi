@@ -30,7 +30,7 @@
 	                            	<th>Title</th>
 	                            	<th>Link</th>
 	                                <th>Parent</th>
-	                                <th>Menu Type</th>
+	                                <th>Language</th>
 	                                <th>Status</th>
 	                     			<th>Action</th>
 	                            </tr>
@@ -42,34 +42,10 @@
 										 <td><input type="checkbox" class="selectbox check_me" name="ids[]" value="{{$m->id}}"></td>
 	                                <td>{{ $m->name }}</td>
 	                                <td>{{ $m->link }}</td>
+	                                <td>@if($m->parents){{ $m->parents->name }}@endif</td>
 	                                <td>
-	                                @if($m->parent_id == 15)
-	                                	Home
-	                                @elseif($m->parent_id == 16)
-	                                	Movie
-	                                @elseif($m->parent_id == 37)
-	                                	Game
-	                                @elseif($m->parent_id == 36)
-	                                	Software
-	                                @elseif($m->parent_id == 51)
-	                                	Music
-	                                @elseif($m->parent_id == 46)
-	                                	Mobile Apps
-	                                @elseif($m->parent_id == 50)
-	                                	Anime
-	                                @elseif($m->parent_id == 52)
-	                                	Ebook
-	                                @elseif($m->parent_id == 53)
-	                                	Picture
-	                                @elseif($m->parent_id == 54)
-	                                	Other
-	                                @else
-	                                	{{ $m->parent_id}}
-	                                @endif
-	                                </td>
-	                                <td>
-	                                	@if(count($m->menu_type)> 0)
-	                                		{{ $m->menu_type->name }}
+	                                	@if($m->language > 0)
+	                                		{{ $m->languages->name }}
 	                                	@else
 	                                		Null
 	                                	@endif

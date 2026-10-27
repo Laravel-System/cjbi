@@ -51,6 +51,15 @@
                 </select>
               </div>
               <div class="form-group">
+                <label>Choose Image Feature</label>
+                <input type="file" name="feature_image" class="form-control">
+              </div>
+              @if($gallery_id->feature_image)
+                  <img src="{{ url('Galleries/'.$gallery_id->feature_image) }}" class="img-close" style="width:100px;"/>
+                  <a class="btn btn-danger closes"><i class="fa fa-ban"></i></a>
+                  <input type="hidden" name="image_hidden" class="image-hidden" class="form-control" value="{{ $gallery_id->feature_image }}">
+              @endif
+              <div class="form-group">
                     
                     <script type="text/javascript">
                         // Get File Name from Input text

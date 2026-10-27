@@ -15,7 +15,7 @@
         <!-- CUSTOM STYLES-->
     <link href="{{url('assets/css/custom.css')}}" rel="stylesheet" />
      <!-- GOOGLE FONTS-->
-   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.8/css/fileinput.min.css">
    <link href="{{ url('assets/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
    <link href="{{url('assets/js/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet" />
@@ -130,13 +130,13 @@
     <script src="{{url('assets/js/dataTables/jquery.dataTables.js')}}"></script>
     <script src="{{url('assets/js/dataTables/dataTables.bootstrap.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.8/js/fileinput.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable({                  
-                  "aaSorting": []  // for clear                             
-                });                
-            });
-        </script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTables-example').dataTable({                  
+              "aaSorting": []  // for clear                             
+            });                
+        });
+    </script>
 
     <!-- <script src="{{url('assets/js/jquery.min.js')}}"></script> -->
     <!-- BOOTSTRAP SCRIPTS  -->
@@ -148,7 +148,7 @@
         $(function () {
             var bindDatePicker = function() {
          		$(".date").datetimepicker({
-                 format:'DD-MM-YYYY HH:mm ',
+                 format:'DD-MM-YYYY HH:mm:ss ',
          			icons: {
          				time: "fa fa-clock-o",
          				date: "fa fa-calendar",
@@ -192,6 +192,12 @@
 
             bindDatePicker();
           });
+          
+
+          CKEDITOR.replace( 'editor1', {
+            extraPlugins: 'imageuploader'
+          });
+
     </script>
     <!-- CUSTOM SCRIPTS -->
   <script src="{{url('assets/js/custom.js')}}"></script>

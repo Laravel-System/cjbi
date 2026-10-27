@@ -25,7 +25,7 @@
                   <button formaction="{{url('multiple_delete_post')}}" type="submit" class="all_delete Delete" style="background:;color:red;margin-bottom:5px;">Delete all selected</button>
                
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                   
+    
                           <thead>
                               <tr>                           
                               <th>
